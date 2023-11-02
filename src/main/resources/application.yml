@@ -1,0 +1,43 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/grass-store?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+
+#  sql:
+#    init:
+#      mode: never
+#  mvc:
+#    hiddenmethod:
+#      filter:
+#        enabled: true
+
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor: TRACE
+        SQL: DEBUG
+      nodeValue: WARN
+    blog: WARN
+
+
+#open.exchange.rates:
+#  schema: https
+#  host: openexchangerates.org
+#  path: /api/latest.json
+#  app_id: ${APP_ID:test}
+#  symbols: EUR,BGN
+#  enabled: false
