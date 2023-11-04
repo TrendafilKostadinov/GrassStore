@@ -1,12 +1,10 @@
 package bg.softuni.grassstore.config;
 
-import bg.softuni.grassstore.model.enums.RoleNames;
-import bg.softuni.grassstore.repositories.UserRepository;
+import bg.softuni.grassstore.repository.UserRepository;
 import bg.softuni.grassstore.service.GGUserDetailService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;

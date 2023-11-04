@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "roles")
-public class UsersRolesEntity extends BaseEntity {
+public class UserRoleEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private RoleNames name;
@@ -17,7 +17,7 @@ public class UsersRolesEntity extends BaseEntity {
         return name;
     }
 
-    public UsersRolesEntity setName(RoleNames name) {
+    public UserRoleEntity setName(RoleNames name) {
         this.name = name;
         return this;
     }

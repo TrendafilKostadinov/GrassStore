@@ -21,7 +21,7 @@ public class UserEntity extends BaseEntity {
 
     @ManyToMany
     @JoinTable
-    private List<UsersRolesEntity> roles;
+    private List<UserRoleEntity> roles;
 
     public UserEntity() {
     }
@@ -53,11 +53,11 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public List<UsersRolesEntity> getRoles() {
+    public List<UserRoleEntity> getRoles() {
         return roles;
     }
 
-    public UserEntity setRoles(List<UsersRolesEntity> roles) {
+    public UserEntity setRoles(List<UserRoleEntity> roles) {
         this.roles = roles;
         return this;
     }

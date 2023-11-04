@@ -1,8 +1,8 @@
 package bg.softuni.grassstore.service;
 
 import bg.softuni.grassstore.model.entity.UserEntity;
-import bg.softuni.grassstore.model.entity.UsersRolesEntity;
-import bg.softuni.grassstore.repositories.UserRepository;
+import bg.softuni.grassstore.model.entity.UserRoleEntity;
+import bg.softuni.grassstore.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -34,7 +34,7 @@ public class GGUserDetailService implements UserDetailsService {
                 .build();
     }
 
-    private static GrantedAuthority map(UsersRolesEntity usersRolesEntity) {
+    private static GrantedAuthority map(UserRoleEntity usersRolesEntity) {
         return new SimpleGrantedAuthority(
                 "ROLE_" + usersRolesEntity.getName().name()
         );

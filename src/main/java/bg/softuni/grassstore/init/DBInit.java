@@ -1,8 +1,8 @@
 package bg.softuni.grassstore.init;
 
-import bg.softuni.grassstore.model.entity.UsersRolesEntity;
+import bg.softuni.grassstore.model.entity.UserRoleEntity;
 import bg.softuni.grassstore.model.enums.RoleNames;
-import bg.softuni.grassstore.repositories.RolesRepository;
+import bg.softuni.grassstore.repository.RolesRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +22,9 @@ public class DBInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (rolesRepository.count()==0){
-            List<UsersRolesEntity> userRoles = new ArrayList<>();
+            List<UserRoleEntity> userRoles = new ArrayList<>();
             Arrays.stream(RoleNames.values()).forEach(roleName -> {
-                UsersRolesEntity usersRolesEntity = new UsersRolesEntity();
+                UserRoleEntity usersRolesEntity = new UserRoleEntity();
                 usersRolesEntity.setName(roleName);
                 userRoles.add(usersRolesEntity);
             });

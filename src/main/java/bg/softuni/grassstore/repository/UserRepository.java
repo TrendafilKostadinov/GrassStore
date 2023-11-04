@@ -1,4 +1,4 @@
-package bg.softuni.grassstore.repositories;
+package bg.softuni.grassstore.repository;
 
 import bg.softuni.grassstore.model.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
