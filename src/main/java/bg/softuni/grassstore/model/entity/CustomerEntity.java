@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "customers")
-public class Customer extends BaseEntity{
+public class CustomerEntity extends BaseEntity{
 
     @NotBlank
     @Size(min = 2,max = 50)
@@ -18,7 +18,7 @@ public class Customer extends BaseEntity{
 
     @NotBlank
     @ManyToOne
-    private Address address;
+    private AddressEntity address;
 
     @NotBlank
     @Size(min = 2,max = 30)
@@ -44,11 +44,11 @@ public class Customer extends BaseEntity{
         this.name = name;
     }
 
-    public Address getAddress() {
+    public AddressEntity getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressEntity address) {
         this.address = address;
     }
 

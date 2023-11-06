@@ -11,15 +11,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order extends BaseEntity{
+public class OrderEntity extends BaseEntity{
 
     @ManyToOne
     @NotNull
-    private Customer customer;
+    private CustomerEntity customer;
 
     @NotEmpty
     @ManyToMany
-    private List<Product> products;
+    private List<ProductEntity> products;
 
     @ManyToOne
     @NotNull
@@ -28,19 +28,19 @@ public class Order extends BaseEntity{
     private boolean isDelivered = false;
 
 
-    public Customer getCustomer() {
+    public CustomerEntity getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(CustomerEntity customer) {
         this.customer = customer;
     }
 
-    public List<Product> getProducts() {
+    public List<ProductEntity> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<ProductEntity> products) {
         this.products = products;
     }
 

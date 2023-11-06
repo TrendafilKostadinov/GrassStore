@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
-public class Product extends BaseEntity{
+public class ProductEntity extends BaseEntity{
 
     @NotBlank
     @Size(min = 2, max = 30)

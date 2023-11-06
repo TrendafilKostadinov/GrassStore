@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "addresses")
-public class Address extends BaseEntity{
+public class AddressEntity extends BaseEntity{
 
     @NotBlank
     private String city;
