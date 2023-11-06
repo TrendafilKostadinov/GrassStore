@@ -22,7 +22,7 @@ public class SecurityConfiguration {
                         // All static resources which are situated in js, images, css are available for anyone
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         // Allow anyone to see the home page, the registration page and the login form
-                        .requestMatchers("/login", "/login-error").permitAll()
+                        .requestMatchers("/login", "/login-error", "/").permitAll()
 //                        .requestMatchers("/offers/all").permitAll()
 //                        .requestMatchers(HttpMethod.GET, "/offer/**").permitAll()
 //                        .requestMatchers("/error").permitAll()
@@ -38,7 +38,7 @@ public class SecurityConfiguration {
                             // The names of the input fields (in our case in auth-login.html)
                             .usernameParameter("email")
                             .passwordParameter("password")
-                            .defaultSuccessUrl("/index")
+                            .defaultSuccessUrl("/home")
                             .failureForwardUrl("/login-error");
                 }
         ).logout(
@@ -47,7 +47,7 @@ public class SecurityConfiguration {
                             // the URL where we should POST something in order to perform the logout
                             .logoutUrl("/logout")
                             // where to go when logged out?
-                            .logoutSuccessUrl("/")
+                            .logoutSuccessUrl("/login")
                             // invalidate the HTTP session
                             .invalidateHttpSession(true);
                 }

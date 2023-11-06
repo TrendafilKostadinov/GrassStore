@@ -8,28 +8,34 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div id="logo" class="col-md-6">
             <h1 class="display-1"><br></h1>
 
-            <h2 class="display-3 text-center text-white">W E L C O M E<br></h2>
-            <h2 class="display-3 text-center text-white">TO<br></h2>
-            <h1 class="display-1 text-center fw-bold text-white">G R E E N<br></h1>
-            <h1 class="display-1 text-center fw-bold text-white">G R A S S<br></h1>
+            <h2 class="display-3 text-center fw-bold text-white">W E L C O M E<br></h2>
+            <h2 class="display-3 text-center fw-bold text-white">TO<br></h2>
+            <h1 class="display-1 text-center fw-bold text-white">G  R   E   E   N<br></h1>
+            <h1 class="display-1 text-center fw-bold text-white">G  R   A   S   S<br></h1>
             <h1 class="display-1 text-center fw-bold text-white">E R P<br></h1>
         </div>
 
-<form class="col-md-6 my-auto">
+<form
+        th:action="@{/login}"
+        th:method="POST"
+        class="col-md-6 my-auto">
         <div >
     <div class="form-group w-50 p-3 mx-auto">
-        <label for="exampleInputEmail1" class="mx-auto fw-bold">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <p th:if="${bad_credentials}" class="errors alert alert-danger">
+            <strong>Invalid username or password.</strong>
+        </p>
+        <label for="email" class="mx-auto fw-bold">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" th:value="${email}" aria-describedby="emailHelp" placeholder="Enter email">
     </div>
     <div class="form-group w-50 p-3 mx-auto">
-        <label for="exampleInputPassword1" class="mx-auto fw-bold">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label for="password" class="mx-auto fw-bold">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
     </div>
             <div class="col w-50 p-3 mx-auto">
-    <button type="submit" class="btn btn-outline-light fw-bold">Submit</button>
+                <button type="submit" value="Login" class="btn btn-outline-light fw-bold">Submit</button>
             </div>
     </div>
 </form>

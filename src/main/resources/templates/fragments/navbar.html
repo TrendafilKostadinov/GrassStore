@@ -1,11 +1,11 @@
 <div class="row">
     <nav class="navbar bg-body-tertiary">
-        <form class="container-fluid justify-content-start" style="align-content: center">
+        <div class="container-fluid justify-content-start" style="align-content: center">
             <div class="col-lg-2">
-                <button class="btn btn-outline-light m-2" type="button">HOME</button>
+                <button class="btn btn-outline-light m-2" type="button" href="/home">HOME</button>
             </div>
             <div class="col-lg-2">
-                <button class="btn btn-outline-light m-2" type="button">Logout</button>
+                <button class="btn btn-outline-light m-2" type="button" href="/logout">Logout</button>
             </div>
             <div class="col-lg-2">
                 <button class="btn btn-outline-light m-2" type="button">Add Order</button>
@@ -17,8 +17,12 @@
                 <button class="btn btn-outline-light m-2" type="button">Add User</button>
             </div>
             <div class="col-lg-2">
-                <button class="btn btn-outline-light m-2" type="button">Log In</button>
+                <form
+                        th:method="POST"
+                        th:action="@{/logout}">
+                    <input type="submit" class="btn btn-outline-light m-2" value="Logout"/>
+                </form>
             </div>
-        </form>
+        </div>
     </nav>
 </div>

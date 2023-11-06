@@ -9,8 +9,12 @@ body {
 
 h1 {
     font-family: "Londrina Shadow", Serif;
+    letter-spacing: 15px;
 }
 h2 {
     font-family: "Londrina Solid", Serif;
+}
+logo {
+    padding-left: 50px;
 }
 

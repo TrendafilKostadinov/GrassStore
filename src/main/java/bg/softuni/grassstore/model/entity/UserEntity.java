@@ -19,7 +19,7 @@ public class UserEntity extends BaseEntity {
     @NotBlank
     private String fullName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     private List<UserRoleEntity> roles;
 
