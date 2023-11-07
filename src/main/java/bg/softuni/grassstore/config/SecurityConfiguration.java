@@ -1,11 +1,14 @@
 package bg.softuni.grassstore.config;
 
+import bg.softuni.grassstore.model.enums.RoleNames;
 import bg.softuni.grassstore.repository.UserRepository;
 import bg.softuni.grassstore.service.GGUserDetailService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
@@ -25,9 +28,9 @@ public class SecurityConfiguration {
                         .requestMatchers("/login", "/login-error", "/").permitAll()
 //                        .requestMatchers("/offers/all").permitAll()
 //                        .requestMatchers(HttpMethod.GET, "/offer/**").permitAll()
-//                        .requestMatchers("/error").permitAll()
-//                        .requestMatchers("/brands").hasRole(RoleNames.ADMIN.name())
-                        // all other requests are authenticated.
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/user-add").hasRole(RoleNames.ADMIN.name())
+                        .requestMatchers("/assign-role").hasRole(RoleNames.MANAGER.name())
                         .anyRequest().authenticated()
         ).formLogin(
                 formLogin -> {
@@ -35,7 +38,7 @@ public class SecurityConfiguration {
                             // redirect here when we access something which is not allowed.
                             // also this is the page where we perform login.
                             .loginPage("/login")
-                            // The names of the input fields (in our case in auth-login.html)
+                            // The names of the input fields (in our case in login.html)
                             .usernameParameter("email")
                             .passwordParameter("password")
                             .defaultSuccessUrl("/home")
@@ -57,6 +60,11 @@ public class SecurityConfiguration {
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return new GGUserDetailService(userRepository);
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
     }
 
     @Bean

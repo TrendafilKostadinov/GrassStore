@@ -9,7 +9,6 @@ import bg.softuni.grassstore.repository.CurrencyRepository;
 import bg.softuni.grassstore.repository.RolesRepository;
 import bg.softuni.grassstore.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -25,17 +24,14 @@ public class DBInit implements CommandLineRunner {
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
-    private final static String DEFAULT_PASS = "asdasd";
+    private final static String ADMIN_PASS = "77ca17c2891b5e12603b45cf841060faeb7cc15f62eaa1929330c497835bf02d5dbd2e6ee32d086ef1a654e4e9e3e1eb";
 
     public DBInit(RolesRepository rolesRepository,
                   CurrencyRepository currencyRepository,
-                  UserRepository userRepository, PasswordEncoder passwordEncoder) {
+                  UserRepository userRepository) {
         this.rolesRepository = rolesRepository;
         this.currencyRepository = currencyRepository;
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -65,7 +61,7 @@ public class DBInit implements CommandLineRunner {
             List<UserRoleEntity> roles = new ArrayList<>();
             roles.add(rolesRepository.findByName(RoleNames.ADMIN));
             admin.setEmail("admin@admin.com")
-                    .setPassword(passwordEncoder.encode(DEFAULT_PASS))
+                    .setPassword(ADMIN_PASS)
                     .setRoles(roles)
                     .setFullName("Admin");
 

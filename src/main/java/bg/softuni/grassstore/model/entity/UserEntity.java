@@ -2,6 +2,7 @@ package bg.softuni.grassstore.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class UserEntity extends BaseEntity {
     private String email;
 
     @NotBlank
+    @Size(min = 3)
     private String password;
 
     @NotBlank
