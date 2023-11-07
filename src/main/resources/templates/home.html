@@ -1,21 +1,44 @@
 <!doctype html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head::head">
 </head>
 <body>
-<div class="container" th:include="fragments/navbar">
+<div th:include="fragments/navbar">
 </div>
-
-<div class="container-fluid">
-    <h3 id="welcome-message" class="text-center text-white mt-5">Hello,
-        <th:block sec:authorize="isAuthenticated()">
-            <th:block th:text="${username}"></th:block>
+<div1>
+    <h5 sec:authorize="isAuthenticated()" class="text-center text-white">Hello,
+        <th:block >
+            <th:block th:text="${username}"></th:block>!
         </th:block>
-        !
-    </h3>
-</div>
+    </h5>
+</div1>
+
+
+<table class="table table-hover w-75" th:align="center">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">Details</th>
+        <th scope="col">Change password</th>
+    </tr>
+    </thead>
+    <tbody>
+<!--    <tr>-->
+<!--        <th scope="row">1</th>-->
+<!--        <td>Mark</td>-->
+<!--        <td>Otto</td>-->
+<!--        <td>@mdo</td>-->
+<!--        <td>@mdo</td>-->
+<!--    </tr>-->
+        <script src="/static/js/app.js"></script>
+    </tbody>
+</table>
+
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

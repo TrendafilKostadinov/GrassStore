@@ -1,6 +1,7 @@
 package bg.softuni.grassstore.service;
 
 import bg.softuni.grassstore.model.dto.UserAddDTO;
+import bg.softuni.grassstore.model.dto.UserDetailDTO;
 import bg.softuni.grassstore.model.entity.UserEntity;
 import bg.softuni.grassstore.model.entity.UserRoleEntity;
 import bg.softuni.grassstore.model.enums.RoleNames;
@@ -8,12 +9,16 @@ import bg.softuni.grassstore.repository.RolesRepository;
 import bg.softuni.grassstore.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -24,14 +29,18 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final SessionRegistry sessionRegistry;
+
+
 //    private final ModelMapper modelMapper;
 
     public UserService(UserRepository userRepository,
                        RolesRepository rolesRepository,
-                       PasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder, SessionRegistry sessionRegistry) {
         this.userRepository = userRepository;
         this.rolesRepository = rolesRepository;
         this.passwordEncoder = passwordEncoder;
+        this.sessionRegistry = sessionRegistry;
     }
 
     public String getUserFullName() {
@@ -75,5 +84,30 @@ public class UserService {
         userRepository.save(user);
 
         return true;
+    }
+
+    public List<UserDetailDTO> getUsersFromSessionRegistry() {
+
+        List<User> principals = sessionRegistry.getAllPrincipals().stream()
+                .filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty())
+                .map(principal -> (User) principal)
+                .toList();
+        if (principals.size() == 0){
+            return new ArrayList<>();
+        }
+
+        return principals
+                .stream()
+                .map(principal ->
+                        userRepository
+                                .findByEmail(principal.getUsername())
+                                .orElse(null))
+                .map(this::map).collect(Collectors.toList());
+    }
+
+    private UserDetailDTO map(UserEntity userEntity) {
+        return new UserDetailDTO()
+                .setEmail(userEntity.getEmail())
+                .setFullName(userEntity.getFullName());
     }
 }

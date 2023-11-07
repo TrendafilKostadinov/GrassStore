@@ -14,10 +14,6 @@ h1 {
 h2 {
     font-family: "Londrina Solid", Serif;
 }
-logo {
-    padding-left: 50px;
+.table {
+    margin-top: 70px;
 }
-welcome-message {
-    font-family: "Playpen Sans", Serif;
-}
-
