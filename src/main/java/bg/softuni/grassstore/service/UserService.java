@@ -2,6 +2,7 @@ package bg.softuni.grassstore.service;
 
 import bg.softuni.grassstore.model.dto.UserAddDTO;
 import bg.softuni.grassstore.model.dto.UserDetailDTO;
+import bg.softuni.grassstore.model.dto.UserPasswordChangeDTO;
 import bg.softuni.grassstore.model.entity.UserEntity;
 import bg.softuni.grassstore.model.entity.UserRoleEntity;
 import bg.softuni.grassstore.model.enums.RoleNames;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 @Service
@@ -106,8 +109,51 @@ public class UserService {
     }
 
     private UserDetailDTO map(UserEntity userEntity) {
+        List<String> roles = userEntity.getRoles()
+                .stream()
+                .map(r -> r.getName().name())
+                .toList();
         return new UserDetailDTO()
                 .setEmail(userEntity.getEmail())
-                .setFullName(userEntity.getFullName());
+                .setFullName(userEntity.getFullName())
+                .setId(userEntity.getId())
+                .setAllRoles(String.join(",", roles));
+    }
+
+
+    public UserDetailDTO getUser(Long id) {
+        UserEntity userEntity = userRepository
+                .findById(id)
+                .orElse(null);
+
+        if (userEntity == null){
+            return null;
+        }
+
+       return this.map(userEntity);
+    }
+
+    public UserDetailDTO getUser(String email) {
+        UserEntity userEntity = userRepository
+                .findByEmail(email)
+                .orElse(null);
+        if (userEntity == null){
+            return null;
+        }
+        return this.map(userEntity);
+    }
+
+    public boolean passwordChange(UserPasswordChangeDTO userPasswordChangeDTO, String email) {
+        if (!userPasswordChangeDTO.getPassword().equals(userPasswordChangeDTO.getConfirmPassword())){
+            return false;
+        }
+
+        UserEntity user = userRepository
+                .findByEmail(email)
+                .get()
+                .setPassword(passwordEncoder.encode(userPasswordChangeDTO.getPassword()));
+        userRepository.save(user);
+
+        return true;
     }
 }

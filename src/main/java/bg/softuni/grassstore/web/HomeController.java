@@ -32,9 +32,10 @@ public class HomeController {
 
     @GetMapping("/home")
     public String getIndex(Model model){
-        model.addAttribute( "username",userService.getUserFullName());
-
         List<UserDetailDTO> users = userService.getUsersFromSessionRegistry();
+
+        model.addAttribute( "username",userService.getUserFullName());
+        model.addAttribute("users", users);
 
         return "home";
     }

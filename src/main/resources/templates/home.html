@@ -17,7 +17,7 @@
 </div1>
 
 
-<table class="table table-hover w-75" th:align="center">
+<table sec:authorize="hasRole('ADMIN')" class="table table-hover w-75" th:align="center">
     <thead>
     <tr>
         <th scope="col">#</th>
@@ -28,13 +28,13 @@
     </tr>
     </thead>
     <tbody>
-<!--    <tr>-->
-<!--        <th scope="row">1</th>-->
-<!--        <td>Mark</td>-->
-<!--        <td>Otto</td>-->
-<!--        <td>@mdo</td>-->
-<!--        <td>@mdo</td>-->
-<!--    </tr>-->
+    <tr th:each="user : ${users}">
+        <td th:text="${users.indexOf(user) + 1}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.fullName}"></td>
+        <td><a class="btn btn-outline-dark" th:href="@{/user-detail/{id}(id=*{user.getId()})}">User details</a></td>
+        <td><a class="btn btn-outline-dark" th:href="@{/admin/user-password/{id}(id=*{user.getId()})}">Change password</a></td>
+    </tr>
         <script src="/static/js/app.js"></script>
     </tbody>
 </table>
