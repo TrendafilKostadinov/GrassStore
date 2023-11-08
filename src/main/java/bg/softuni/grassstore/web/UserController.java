@@ -77,6 +77,29 @@ public class UserController {
         return "/user-password";
     }
 
+    @PostMapping("/admin/user-password/{id}")
+    public String postUserPassword(@PathVariable Long id,
+                                  @Valid UserPasswordChangeDTO userPasswordChangeDTO,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes,
+                                  Model model){
+        model.addAttribute("userToChange", userService.getUser(id));
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("bad_credentials", true);
+
+            return "redirect:/admin/user-password/" + id;
+        }
+
+        if (!userService.passwordChange(userPasswordChangeDTO, id)){
+            redirectAttributes.addFlashAttribute("diff_passwords", true);
+
+            return "redirect:/admin/user-password/" + id;
+        }
+        redirectAttributes.addFlashAttribute("good_credentials", true);
+
+        return "redirect:/admin/user-password/" + id;
+    }
+
     @GetMapping("/user-password")
     public String getUserPassword(Model model){
 

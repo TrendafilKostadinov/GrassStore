@@ -156,4 +156,18 @@ public class UserService {
 
         return true;
     }
+
+    public boolean passwordChange(UserPasswordChangeDTO userPasswordChangeDTO, Long id) {
+        if (!userPasswordChangeDTO.getPassword().equals(userPasswordChangeDTO.getConfirmPassword())){
+            return false;
+        }
+
+        UserEntity user = userRepository
+                .findById(id)
+                .get()
+                .setPassword(passwordEncoder.encode(userPasswordChangeDTO.getPassword()));
+        userRepository.save(user);
+
+        return true;
+    }
 }
