@@ -17,7 +17,8 @@
 </div1>
 
 
-<table sec:authorize="hasRole('ADMIN')" class="table table-hover w-75" th:align="center">
+<table sec:authorize="hasRole('ADMIN')" class="table table-hover caption-top w-75" th:align="center">
+    <caption style="color: black"><h3>All logged users</h3></caption>
     <thead>
     <tr>
         <th scope="col">#</th>
@@ -32,10 +33,9 @@
         <td th:text="${users.indexOf(user) + 1}"></td>
         <td th:text="${user.email}"></td>
         <td th:text="${user.fullName}"></td>
-        <td><a class="btn btn-outline-dark" th:href="@{/user-detail/{id}(id=*{user.getId()})}">User details</a></td>
-        <td><a class="btn btn-outline-dark" th:href="@{/admin/user-password/{id}(id=*{user.getId()})}">Change password</a></td>
+        <td><a class="btn shadow-lg btn-outline-dark" th:href="@{/user-detail/{id}(id=*{user.getId()})}">User details</a></td>
+        <td><a class="btn shadow-lg btn-outline-dark" th:href="@{/admin/user-password/{id}(id=*{user.getId()})}">Change password</a></td>
     </tr>
-        <script src="/static/js/app.js"></script>
     </tbody>
 </table>
 

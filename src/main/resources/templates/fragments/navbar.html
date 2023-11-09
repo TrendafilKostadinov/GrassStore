@@ -1,29 +1,29 @@
 <div   xmlns:sec="http://www.w3.org/1999/xhtml">
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid justify-content-center">
-            <div class="col-lg-2">
-                <a class="btn btn-outline-light m-2" type="button" href="/home">HOME</a>
+            <div class="col-lg-2 text-center">
+                <a class="btn shadow-lg btn-outline-light fw-bold m-2" type="button" href="/home">HOME</a>
             </div>
-            <div class="col-lg-2" sec:authorize="hasRole('ADMIN')">
-                <a class="btn btn-outline-light m-2" type="button" th:href="@{/user-add}">Add user</a>
+            <div class="col-lg-2 text-center" sec:authorize="hasRole('ADMIN')">
+                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/user-add}">Add user</a>
             </div>
-            <div class="col-lg-2" sec:authorize="hasRole('TRADER')">
-                <a class="btn btn-outline-light m-2" type="button" th:href="@{/order-add}">Add Order</a>
+            <div class="col-lg-2 text-center" sec:authorize="hasRole('TRADER')">
+                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/order-add}">Add Order</a>
             </div>
-            <div class="col-lg-2" sec:authorize="hasRole('MANAGER')">
-                <a class="btn btn-outline-light m-2" type="button" th:href="@{/assign-role}">Assign Role</a>
+            <div class="col-lg-2 text-center" sec:authorize="hasRole('MANAGER')">
+                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/assign-role}">Assign Role</a>
             </div>
-            <div class="col-lg-2" sec:authorize="hasRole('OSB')">
-                <a class="btn btn-outline-light m-2" type="button" th:href="@{/ship-order}">Ship order</a>
+            <div class="col-lg-2 text-center" sec:authorize="hasRole('OSB')">
+                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/ship-order}">Ship order</a>
             </div>
-            <div class="col-lg-2" sec:authorize="hasAnyRole('TRADER', 'MANAGER', 'OSB')">
-                <a class="btn btn-outline-light m-2" type="button" th:href="@{/user-password}">Change password</a>
+            <div class="col-lg-2 text-center" sec:authorize="hasAnyRole('TRADER', 'MANAGER', 'OSB')">
+                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/user-password}">Change password</a>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-2 text-center">
                 <form
                         th:method="POST"
                         th:action="@{/logout}">
-                    <input type="submit" class="btn btn-outline-light m-2" value="Logout"/>
+                    <input type="submit" class="btn shadow-lg fw-bold btn-outline-light m-2" value="Logout"/>
                 </form>
             </div>
         </div>
