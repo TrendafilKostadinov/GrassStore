@@ -17,6 +17,12 @@ h1 {
 h2 {
     font-family: "Londrina Solid", Serif;
 }
+
+h3 {
+    color: black;
+    margin-left: 70px;
+}
+
 .table {
     margin-top: 70px;
 }
@@ -26,8 +32,13 @@ h2 {
         width: 25% !important
     }
 }
+
+@media (min-width: 576px) {
+    .w-sm-50 {
+        width: 50% !important
+    }
+}
+
 .shadow-lg {
     box-shadow: 5px 5px 10px #029c02 !important;
-    /*0 0 1em #029c02,*/
-    /*0 0 0.2em #029c02;*/
 }

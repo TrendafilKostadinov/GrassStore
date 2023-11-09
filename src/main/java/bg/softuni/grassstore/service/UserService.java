@@ -210,4 +210,12 @@ public class UserService {
 
         endUserSession(user.getEmail());
     }
+
+    public List<UserDetailDTO> getAllUsers() {
+        return userRepository
+                .findAll()
+                .stream()
+                .map(this::map)
+                .toList();
+    }
 }

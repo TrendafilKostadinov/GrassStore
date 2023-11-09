@@ -40,6 +40,15 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/all-users")
+    public String getAllUsers(Model model){
+        List<UserDetailDTO> users = userService.getAllUsers();
+
+        model.addAttribute("users", users);
+
+        return "all-users";
+    }
+
     @PostMapping("/login-error")
     public String onFailure(
             @ModelAttribute("email") String email,

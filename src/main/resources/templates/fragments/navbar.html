@@ -8,7 +8,7 @@
                 <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/user-add}">Add user</a>
             </div>
             <div class="col-lg-2 text-center" sec:authorize="hasRole('ADMIN')">
-                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/users-get-all}">All users</a>
+                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/all-users}">All users</a>
             </div>
             <div class="col-lg-2 text-center" sec:authorize="hasRole('TRADER')">
                 <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/order-add}">Add Order</a>
