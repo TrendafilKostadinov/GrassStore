@@ -23,7 +23,7 @@
 </div>
 
 <div class="modal fade" id="confModal" tabindex="-1" role="dialog" aria-labelledby="confModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog" role="document">
         <form
                 th:method="POST"
                 th:action="@{/user-delete/{id}(id = ${user.getId()})}">
@@ -47,14 +47,14 @@
 </div>
 
 <div class="modal fade" id="changeNameModal" tabindex="-1" role="dialog" aria-labelledby="changeNameModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog" role="document">
         <form
                 th:method="POST"
                 th:action="@{/user-change-name/{id}(id = ${user.getId()})}"
                 th:object="${userDetailDTO}">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="changeLabel">DELETE USER</h5>
+                <h5 class="modal-title" id="changeLabel">CHANGE USER FULL NAME</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -63,7 +63,7 @@
                 <form>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">New full name</label>
-                        <input th:field="*{fullName}" class="form-control" placeholder="Full Name" id="message-text">
+                        <input th:field="*{fullName}" type="text" class="form-control" placeholder="Full Name" id="message-text">
                     </div>
                 </form>
             </div>

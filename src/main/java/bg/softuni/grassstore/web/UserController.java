@@ -139,7 +139,10 @@ public class UserController {
     @PostMapping("/user-change-name/{id}")
     public String changeFullName(@PathVariable Long id,
                                  UserDetailDTO userDetailDTO){
-            userService.changeUserFullName(id, userDetailDTO.getFullName());
+
+            if (!userDetailDTO.getFullName().isBlank()){
+                userService.changeUserFullName(id, userDetailDTO.getFullName());
+            }
 
             return "redirect:/user-detail/" + id;
     }

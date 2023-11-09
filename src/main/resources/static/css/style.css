@@ -10,12 +10,15 @@ body {
 h1 {
     font-family: "Londrina Shadow", Serif;
     letter-spacing: 15px;
-    text-shadow: 5px 5px 10px #029c02,
-    0 0 1em #029c02,
-    0 0 0.2em #029c02;
+    text-shadow: 5px 5px 10px #9bb403,
+    0 0 1em #9bb403,
+    0 0 0.2em #9bb403;
 }
 h2 {
     font-family: "Londrina Solid", Serif;
+    text-shadow: 5px 5px 10px #9bb403,
+    0 0 1em #9bb403,
+    0 0 0.2em #9bb403;
 }
 
 h3 {
@@ -40,5 +43,23 @@ h3 {
 }
 
 .shadow-lg {
-    box-shadow: 5px 5px 10px #029c02 !important;
+    box-shadow: 5px 5px 10px #146A00 !important;
+}
+
+.modal {
+    text-align: center;
+}
+
+.modal::before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    margin-right: -4px;
+    vertical-align: middle;
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
 }
