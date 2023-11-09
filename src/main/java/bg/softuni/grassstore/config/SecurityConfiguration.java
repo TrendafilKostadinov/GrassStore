@@ -29,7 +29,10 @@ public class SecurityConfiguration {
 //                        .requestMatchers("/offers/all").permitAll()
 //                        .requestMatchers(HttpMethod.GET, "/offer/**").permitAll()
                                 .requestMatchers("/error").permitAll()
-                                .requestMatchers("/user-add", "/admin/user-password/**").hasRole(RoleNames.ADMIN.name())
+                                .requestMatchers(
+                                        "/user-add",
+                                        "/admin/user-password/**",
+                                        "/user-delete/**").hasRole(RoleNames.ADMIN.name())
                                 .requestMatchers("/assign-role").hasRole(RoleNames.MANAGER.name())
                                 .anyRequest().authenticated()
                 ).formLogin(

@@ -30,6 +30,11 @@ public class UserController {
         return new UserAddDTO();
     }
 
+    @ModelAttribute("userDetailDTO")
+    public UserDetailDTO initUserDetailDTO(){
+        return new UserDetailDTO();
+    }
+
     @GetMapping("/user-add")
     public String getUserAdd(){
         return "/user-add";
@@ -54,13 +59,6 @@ public class UserController {
     public String getUserDetail(@PathVariable Long id,
                                 Model model,
                                 Principal principal){
-//        if (!principal.getName().equals(userService.getUser(id).getEmail())){
-//            model.addAttribute("diff_id", true);
-//
-//            return "/home";
-//        }
-
-        //TODO:
 
         UserDetailDTO user = userService.getUser(id);
         model.addAttribute("user", user);
@@ -128,5 +126,29 @@ public class UserController {
         model.addAttribute("good_credentials", true);
 
         return "/user-password";
+    }
+
+    @PostMapping("/user-delete/{id}")
+    public String deleteUser(@PathVariable Long id){
+
+        userService.deleteUser(id);
+
+        return "redirect:/home";
+    }
+
+    @PostMapping("/user-change-name/{id}")
+    public String changeFullName(@PathVariable Long id,
+                                 UserDetailDTO userDetailDTO){
+            userService.changeUserFullName(id, userDetailDTO.getFullName());
+
+            return "redirect:/user-detail/" + id;
+    }
+
+    @PostMapping("/admin/user-terminate/{id}")
+    public String terminateSession(@PathVariable Long id){
+
+        userService.terminateSession(id);
+
+        return "redirect:/home";
     }
 }

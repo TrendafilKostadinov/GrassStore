@@ -1,0 +1,29 @@
+<table sec:authorize="hasRole('ADMIN')" class="table table-hover caption-top w-75" th:align="center"
+       xmlns:sec="http://www.w3.org/1999/xhtml">
+    <caption style="color: black"><h3>All logged users</h3></caption>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">Details</th>
+        <th scope="col">Change password</th>
+        <th scope="col">Terminate session</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${users.indexOf(user) + 1}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.fullName}"></td>
+        <td><a class="btn shadow-lg btn-outline-dark" th:href="@{/user-detail/{id}(id=*{user.getId()})}">User details</a></td>
+        <td><a class="btn shadow-lg btn-outline-dark" th:href="@{/admin/user-password/{id}(id=*{user.getId()})}">Change password</a></td>
+        <td>
+            <form th:method="POST"
+                  th:action="@{/admin/user-terminate/{id}(id=*{user.getId()})}">
+            <button class="btn shadow-lg btn-outline-dark">Terminate</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>

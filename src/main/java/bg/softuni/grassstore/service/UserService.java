@@ -10,17 +10,15 @@ import bg.softuni.grassstore.repository.RolesRepository;
 import bg.softuni.grassstore.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 @Service
@@ -169,5 +167,47 @@ public class UserService {
         userRepository.save(user);
 
         return true;
+    }
+
+    public void deleteUser(Long id) {
+        String email = userRepository.findById(id).get().getEmail();
+
+        endUserSession(email);
+
+        userRepository.deleteById(id);
+    }
+
+    private void endUserSession(String email) {
+        List<User> allPrincipals = sessionRegistry
+                .getAllPrincipals()
+                .stream()
+                .map(p -> (User)p)
+                .toList();
+
+        User principalToDelete = allPrincipals
+                .stream()
+                .filter(p -> p.getUsername().equals(email))
+                .findFirst()
+                .orElse(null);
+
+        if (principalToDelete != null) {
+            sessionRegistry
+                    .getAllSessions(principalToDelete, false)
+                    .stream()
+                    .findFirst().ifPresent(SessionInformation::expireNow);
+
+        }
+    }
+
+    public void changeUserFullName(Long id, String fullName) {
+        userRepository.findById(id)
+                .ifPresent(user -> userRepository.save(user.setFullName(fullName)));
+
+    }
+
+    public void terminateSession(Long id) {
+        UserEntity user = userRepository.findById(id).orElseThrow();
+
+        endUserSession(user.getEmail());
     }
 }
