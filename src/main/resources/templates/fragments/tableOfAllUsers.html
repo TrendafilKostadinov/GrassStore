@@ -16,7 +16,7 @@
         <th scope="col">Change password</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="allUsersTable">
     <tr th:each="user : ${users}">
         <td th:text="${users.indexOf(user) + 1}"></td>
         <td th:text="${user.email}"></td>
