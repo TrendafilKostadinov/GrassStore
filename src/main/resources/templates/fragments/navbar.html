@@ -19,6 +19,9 @@
             <div class="col-lg-2 text-center" sec:authorize="hasRole('OSB')">
                 <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/ship-order}">Ship order</a>
             </div>
+            <div class="col-lg-2 text-center" sec:authorize="hasRole('OSB')">
+                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/product-add}">Add product</a>
+            </div>
             <div class="col-lg-2 text-center" sec:authorize="hasAnyRole('TRADER', 'MANAGER', 'OSB')">
                 <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/user-password}">Change password</a>
             </div>

@@ -47,7 +47,7 @@ public class UserController {
         if(!userService.addUser(userAddDTO) ||
                 bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("userAddDTO", userAddDTO);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginDTO",
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userAddDTO",
                     bindingResult);
 
             return "redirect:/user-add";
@@ -57,8 +57,7 @@ public class UserController {
 
     @GetMapping("/user-detail/{id}")
     public String getUserDetail(@PathVariable Long id,
-                                Model model,
-                                Principal principal){
+                                Model model){
 
         UserDetailDTO user = userService.getUser(id);
         model.addAttribute("user", user);
