@@ -6,15 +6,34 @@
 <body>
 <div class="container" th:include="fragments/navbar">
 </div>
+
 <div class="container-fluid justify-content-center">
-    <h4 class="text-center text-white fw-bold" style="padding-top: 30px; text-shadow: #146A00">Add Order</h4>
+    <h4 class="text-center text-white fw-bold" style="padding-top: 30px; text-shadow: #146A00">Add order</h4>
     <form
             th:action="@{/order-add}"
             th:method="POST"
             th:object="${orderAddDTO}"
             class="col-md-12" style="padding-top: 20px;">
 
-
+        <div class="form-group w-100 w-sm-25 p-3 mx-auto">
+            <label for="customerInput" class="mx-auto fw-bold">Customer</label>
+            <input th:field="*{customer}" type="text" class="form-control shadow-lg" id="customerInput" placeholder="Customer name">
+        </div>
+        <div class="form-group w-100 w-sm-25 p-3 mx-auto">
+            <label for="currencyInput" class="mx-auto fw-bold">Currency</label>
+            <input th:field="*{currency}" type="text" class="form-control shadow-lg" id="currencyInput" placeholder="Currency">
+        </div>
+        <select class="form-control w-100 w-sm-25 p-3 mx-auto" data-live-search="true" th:field="*{products}">
+            <label for="prodOptions" class="mx-auto fw-bold">Select product</label>
+            <option id="prodOptions" th:each="product : ${productList}" th:value="${product.getId()}" th:text="${product.getName()}">
+            </option>
+<!--            TODO:-->
+        </select>
+        <div class="form-group w-100 w-sm-25 p-3 mx-auto">
+            <div class="col w-25" style="padding-top: 10px;">
+                <button type="submit" value="Submit" class="btn shadow-lg btn-outline-light fw-bold">Submit</button>
+            </div>
+        </div>
     </form>
 </div>
 
@@ -22,5 +41,6 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 </body>
 </html>

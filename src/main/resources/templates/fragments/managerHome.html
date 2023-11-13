@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<div sec:authorize="hasRole('MANGER')" class="col-lg-2 text-center">
+    <a class="btn shadow-lg fw-bold btn-outline-light m-2" id="loadActiveOrders" type="button">Get all active orders</a>
+</div>
+
+<table sec:authorize="hasRole('MANGER')" class="table table-hover caption-top w-75"
+       id="allActiveOrders"
+       xmlns:sec="http://www.w3.org/1999/xhtml">
+    <caption style="color: black"><h3>Currency exchange rates</h3></caption>
+
+
+</table>
+
+</body>
+</html>

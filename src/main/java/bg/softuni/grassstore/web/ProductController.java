@@ -1,6 +1,7 @@
 package bg.softuni.grassstore.web;
 
 import bg.softuni.grassstore.model.dto.ProductAddDTO;
+import bg.softuni.grassstore.service.ProductService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,12 @@ public class ProductController {
 
     private final ModelMapper modelMapper;
 
-    public ProductController(ModelMapper modelMapper) {
+    private final ProductService productService;
+
+    public ProductController(ModelMapper modelMapper,
+                             ProductService productService) {
         this.modelMapper = modelMapper;
+        this.productService = productService;
     }
 
     @ModelAttribute("productAddDTO")
@@ -40,6 +45,8 @@ public class ProductController {
 
             return "redirect:/product-add";
         }
+
+        //TODO
 
         return "/home";
     }

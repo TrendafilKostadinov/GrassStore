@@ -1,30 +1,26 @@
 package bg.softuni.grassstore.model.dto;
 
+import bg.softuni.grassstore.model.entity.CurrencyEntity;
+import bg.softuni.grassstore.model.entity.CustomerEntity;
 import bg.softuni.grassstore.model.entity.ProductEntity;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
-public class OrderAddDTO {
+public class OrderDetailDTO {
 
-    @NotNull
-    private String customer;
+    private CustomerEntity customer;
 
-    @NotEmpty
     private List<ProductEntity> products;
 
-    @NotNull
-    private String currency;
+    private CurrencyEntity currency;
 
-    @NotNull
     private boolean isDelivered;
 
-    public String getCustomer() {
+    public CustomerEntity getCustomer() {
         return customer;
     }
 
-    public OrderAddDTO setCustomer(String customer) {
+    public OrderDetailDTO setCustomer(CustomerEntity customer) {
         this.customer = customer;
         return this;
     }
@@ -33,16 +29,16 @@ public class OrderAddDTO {
         return products;
     }
 
-    public OrderAddDTO setProducts(List<ProductEntity> products) {
+    public OrderDetailDTO setProducts(List<ProductEntity> products) {
         this.products = products;
         return this;
     }
 
-    public String getCurrency() {
+    public CurrencyEntity getCurrency() {
         return currency;
     }
 
-    public OrderAddDTO setCurrency(String currency) {
+    public OrderDetailDTO setCurrency(CurrencyEntity currency) {
         this.currency = currency;
         return this;
     }
@@ -51,7 +47,7 @@ public class OrderAddDTO {
         return isDelivered;
     }
 
-    public OrderAddDTO setDelivered(boolean delivered) {
+    public OrderDetailDTO setDelivered(boolean delivered) {
         isDelivered = delivered;
         return this;
     }
