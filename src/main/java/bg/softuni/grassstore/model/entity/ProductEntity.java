@@ -28,23 +28,26 @@ public class ProductEntity extends BaseEntity{
         return name;
     }
 
-    public void setName(String name) {
+    public ProductEntity setName(String name) {
         this.name = name;
+        return this;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public ProductEntity setPrice(BigDecimal price) {
         this.price = price;
+        return this;
     }
 
     public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public ProductEntity setQuantity(Double quantity) {
         this.quantity = quantity;
+        return this;
     }
 }

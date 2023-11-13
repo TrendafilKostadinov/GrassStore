@@ -5,6 +5,7 @@ import bg.softuni.grassstore.service.ProductService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,7 +38,8 @@ public class ProductController {
     @PostMapping("/product-add")
     public String postAddProduct(@Valid ProductAddDTO productAddDTO,
                                  BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes){
+                                 RedirectAttributes redirectAttributes,
+                                 Model model){
         if (bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("productAddDTO", productAddDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productAddDTO",
@@ -46,9 +48,13 @@ public class ProductController {
             return "redirect:/product-add";
         }
 
-        //TODO
+        if(!productService.addProduct(productAddDTO)){
+            model.addAttribute("existingName", true);
 
-        return "/home";
+            return "/product-add";
+        }
+
+        return "redirect:/home";
     }
 
 }

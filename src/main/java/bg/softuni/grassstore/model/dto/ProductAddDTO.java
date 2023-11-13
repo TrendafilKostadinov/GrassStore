@@ -1,5 +1,6 @@
 package bg.softuni.grassstore.model.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;

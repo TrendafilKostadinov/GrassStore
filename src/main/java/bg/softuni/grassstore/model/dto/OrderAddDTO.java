@@ -3,6 +3,7 @@ package bg.softuni.grassstore.model.dto;
 import bg.softuni.grassstore.model.entity.ProductEntity;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.util.List;
 
@@ -12,7 +13,10 @@ public class OrderAddDTO {
     private String customer;
 
     @NotEmpty
-    private List<ProductEntity> products;
+    private List<String> products;
+
+    @Positive
+    private Long quantity;
 
     @NotNull
     private String currency;
@@ -29,12 +33,21 @@ public class OrderAddDTO {
         return this;
     }
 
-    public List<ProductEntity> getProducts() {
+    public List<String> getProducts() {
         return products;
     }
 
-    public OrderAddDTO setProducts(List<ProductEntity> products) {
+    public OrderAddDTO setProducts(List<String> products) {
         this.products = products;
+        return this;
+    }
+
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    public OrderAddDTO setQuantity(Long quantity) {
+        this.quantity = quantity;
         return this;
     }
 

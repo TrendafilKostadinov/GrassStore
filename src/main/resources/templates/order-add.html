@@ -23,12 +23,22 @@
             <label for="currencyInput" class="mx-auto fw-bold">Currency</label>
             <input th:field="*{currency}" type="text" class="form-control shadow-lg" id="currencyInput" placeholder="Currency">
         </div>
-        <select class="form-control w-100 w-sm-25 p-3 mx-auto" data-live-search="true" th:field="*{products}">
-            <label for="prodOptions" class="mx-auto fw-bold">Select product</label>
+        <div class="row" style="justify-content: center; align-items: center">
+        <select class="form-select col-lg-3 w-sm-25 shadow-lg" data-live-search="true" th:field="*{products}">
+            <option class="shadow-lg" value="">Select product</option>
             <option id="prodOptions" th:each="product : ${productList}" th:value="${product.getId()}" th:text="${product.getName()}">
             </option>
 <!--            TODO:-->
         </select>
+        <div class="form-group col-lg-3">
+            <input th:field="*{quantity}" type="number" step="1" min="0" class="form-control w-sm-25 mx-auto shadow-lg" id="quantityInput" placeholder="Quantity">
+        </div>
+            <span class="input-group-btn">
+                            <button class="btn btn-success btn-add" type="button">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </span>
+        </div>
         <div class="form-group w-100 w-sm-25 p-3 mx-auto">
             <div class="col w-25" style="padding-top: 10px;">
                 <button type="submit" value="Submit" class="btn shadow-lg btn-outline-light fw-bold">Submit</button>

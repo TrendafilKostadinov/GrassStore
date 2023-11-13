@@ -1,6 +1,8 @@
 package bg.softuni.grassstore.service;
 
+import bg.softuni.grassstore.model.dto.ProductAddDTO;
 import bg.softuni.grassstore.model.dto.ProductDetailDTO;
+import bg.softuni.grassstore.model.entity.ProductEntity;
 import bg.softuni.grassstore.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -27,5 +29,19 @@ public class ProductService {
                 .toList();
     }
 
-    //TODO: add product function
+    public boolean addProduct(ProductAddDTO productAddDTO) {
+        if (productRepository.findByName(productAddDTO.getName()).isPresent()){
+            return false;
+        }
+
+        ProductEntity productEntity = new ProductEntity()
+                .setName(productAddDTO.getName())
+                .setPrice(productAddDTO.getPrice())
+                .setQuantity(productAddDTO.getQuantity());
+
+        productRepository.save(productEntity);
+
+        return true;
+    }
+
 }
