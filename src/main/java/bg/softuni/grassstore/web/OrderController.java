@@ -1,6 +1,7 @@
 package bg.softuni.grassstore.web;
 
 import bg.softuni.grassstore.model.dto.OrderAddDTO;
+import bg.softuni.grassstore.model.dto.ProductAddDTO;
 import bg.softuni.grassstore.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,11 @@ public class OrderController {
     @ModelAttribute("orderAddDTO")
     public OrderAddDTO initOrderAddDTO(){
         return new OrderAddDTO();
+    }
+
+    @ModelAttribute("productAddDTO")
+    public ProductAddDTO initProductAddDTO(){
+        return new ProductAddDTO();
     }
 
     @GetMapping("/order-add")

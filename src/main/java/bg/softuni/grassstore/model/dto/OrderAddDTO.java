@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.util.List;
+import java.util.Map;
 
 public class OrderAddDTO {
 
@@ -13,10 +14,7 @@ public class OrderAddDTO {
     private String customer;
 
     @NotEmpty
-    private List<String> products;
-
-    @Positive
-    private Long quantity;
+    private List<ProductEntity> productTOSell;
 
     @NotNull
     private String currency;
@@ -33,21 +31,12 @@ public class OrderAddDTO {
         return this;
     }
 
-    public List<String> getProducts() {
-        return products;
+    public List<ProductEntity> getProductTOSell() {
+        return productTOSell;
     }
 
-    public OrderAddDTO setProducts(List<String> products) {
-        this.products = products;
-        return this;
-    }
-
-    public Long getQuantity() {
-        return quantity;
-    }
-
-    public OrderAddDTO setQuantity(Long quantity) {
-        this.quantity = quantity;
+    public OrderAddDTO setProductTOSell(List<ProductEntity> productTOSell) {
+        this.productTOSell = productTOSell;
         return this;
     }
 
