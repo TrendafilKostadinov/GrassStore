@@ -13,6 +13,9 @@
             <div class="col-lg-2 text-center" sec:authorize="hasRole('TRADER')">
                 <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/order-add}">Add Order</a>
             </div>
+            <div class="col-lg-2 text-center" sec:authorize="hasRole('TRADER')">
+                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/customer-add}">Add Customer</a>
+            </div>
             <div class="col-lg-2 text-center" sec:authorize="hasRole('MANAGER')">
                 <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/assign-role}">Assign Role</a>
             </div>

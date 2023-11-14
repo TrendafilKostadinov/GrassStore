@@ -28,7 +28,7 @@
         <div class="container--fluid justify-content-center form-cont" id="form-cont">
             <div class="row" id="show_item" style="justify-content: center; align-items: center">
                 <select class="form-select add-sel col-lg-3 w-sm-25 shadow-lg" data-live-search="true"
-                        th:field="*{product}">
+                        th:field="*{productTOSell}">
 <!--                    TODO:-->
                     <option class="shadow-lg" value="">Select product</option>
                     <option th:each="product : ${productList}" th:value="${product.getName()}"

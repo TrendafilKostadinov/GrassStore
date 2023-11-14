@@ -33,8 +33,6 @@ public class UserService {
     private final SessionRegistry sessionRegistry;
 
 
-//    private final ModelMapper modelMapper;
-
     public UserService(UserRepository userRepository,
                        RolesRepository rolesRepository,
                        PasswordEncoder passwordEncoder, SessionRegistry sessionRegistry) {

@@ -1,5 +1,6 @@
 package bg.softuni.grassstore.model.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -14,9 +15,10 @@ public class CustomerEntity extends BaseEntity{
 
     @NotBlank
     @Size(min = 2,max = 50)
+    @Column(unique = true)
     private String name;
 
-    @NotBlank
+    @NotNull
     @ManyToOne
     private AddressEntity address;
 
@@ -25,9 +27,6 @@ public class CustomerEntity extends BaseEntity{
     private String contactPerson;
 
     private String phone;
-
-    @Email
-    private String email;
 
     @NotBlank
     private String vatNumber;
@@ -40,55 +39,53 @@ public class CustomerEntity extends BaseEntity{
         return name;
     }
 
-    public void setName(String name) {
+    public CustomerEntity setName(String name) {
         this.name = name;
+        return this;
     }
 
     public AddressEntity getAddress() {
         return address;
     }
 
-    public void setAddress(AddressEntity address) {
+    public CustomerEntity setAddress(AddressEntity address) {
         this.address = address;
+        return this;
     }
 
     public String getContactPerson() {
         return contactPerson;
     }
 
-    public void setContactPerson(String contactPerson) {
+    public CustomerEntity setContactPerson(String contactPerson) {
         this.contactPerson = contactPerson;
+        return this;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public CustomerEntity setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+        return this;
     }
 
     public String getVatNumber() {
         return vatNumber;
     }
 
-    public void setVatNumber(String vatNumber) {
+    public CustomerEntity setVatNumber(String vatNumber) {
         this.vatNumber = vatNumber;
+        return this;
     }
 
     public UserEntity getTrader() {
         return trader;
     }
 
-    public void setTrader(UserEntity trader) {
+    public CustomerEntity setTrader(UserEntity trader) {
         this.trader = trader;
+        return this;
     }
 }
