@@ -17,6 +17,7 @@
             th:method="POST"
             th:object="${customerAddDTO}"
             class="col-md-12" style="padding-top: 20px;">
+<!--        TODO:existing customer message-->
         <div class="form-group w-100 w-sm-25 p-3 mx-auto">
             <label for="nameInput" class="mx-auto fw-bold">Customer name</label>
             <input th:field="*{name}" th:errorclass="'is-invalid alert-danger'" type="text"
