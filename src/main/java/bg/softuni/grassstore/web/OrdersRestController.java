@@ -1,10 +1,11 @@
 package bg.softuni.grassstore.web;
 
+import bg.softuni.grassstore.model.dto.OrderAddDTO;
 import bg.softuni.grassstore.model.dto.OrderDetailDTO;
 import bg.softuni.grassstore.service.OrderService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,14 +13,20 @@ import java.util.List;
 public class OrdersRestController {
 
     private final OrderService orderService;
+    @ModelAttribute("orderAddDTO")
+    public OrderAddDTO initOrderDTO(){
+        return new OrderAddDTO();
+    }
 
     public OrdersRestController(OrderService orderService) {
         this.orderService = orderService;
     }
 
-    @GetMapping("/orders/all")
-    public ResponseEntity<List<OrderDetailDTO>> getAllUsers(){
-        return ResponseEntity.ok(orderService.getAllActiveOrders());
+    @PostMapping(path="/order-add/{customerId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<OrderAddDTO> getOrder(@PathVariable Long customerId,
+                                      @RequestBody List<OrderAddDTO> orders){
+        return null;
     }
 
 }

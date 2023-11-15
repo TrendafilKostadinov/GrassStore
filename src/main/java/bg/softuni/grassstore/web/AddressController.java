@@ -43,6 +43,6 @@ public class AddressController {
 
         addressService.addAddress(addressAddDTO);
 
-        return "redirect:/home";
+        return "redirect:/customer-add";
     }
 }

@@ -10,34 +10,29 @@
 <div class="container-fluid justify-content-center">
     <h4 class="text-center text-white fw-bold" style="padding-top: 30px; text-shadow: #146A00">Add order</h4>
     <form
-            th:action="@{/order-add}"
+            th:action="@{/order-add/{customerId}(customerId = ${customer.getId()})}"
             th:method="POST"
             th:object="${orderAddDTO}"
             class="col-md-12" id="form_input" style="padding-top: 20px;">
 
         <div class="form-group w-100 w-sm-25 p-3 mx-auto">
             <label for="customerInput" class="mx-auto fw-bold">Customer</label>
-            <input th:field="*{customer}" type="text" class="form-control shadow-lg" id="customerInput"
-                   placeholder="Customer name">
-        </div>
-        <div class="form-group w-100 w-sm-25 p-3 mx-auto">
-            <label for="currencyInput" class="mx-auto fw-bold">Currency</label>
-            <input th:field="*{currency}" type="text" class="form-control shadow-lg" id="currencyInput"
-                   placeholder="Currency">
+            <input type="text" class="form-control shadow-lg" id="customerInput"
+                   th:placeholder="${customer.getName()}" disabled readonly>
         </div>
         <div class="container--fluid justify-content-center form-cont" id="form-cont">
             <div class="row" id="show_item" style="justify-content: center; align-items: center">
                 <select class="form-select add-sel col-lg-3 w-sm-25 shadow-lg" data-live-search="true"
-                        th:field="*{productTOSell}">
+                        th:field="*{productId}">
 <!--                    TODO:-->
                     <option class="shadow-lg" value="">Select product</option>
-                    <option th:each="product : ${productList}" th:value="${product.getName()}"
+                    <option th:each="product : ${productList}" th:value="${product.getId()}"
                             th:text="${product.getName()}">
                     </option>
                 </select>
                 <div class="form-group add-qty col-lg-2">
                     <input  type="number" step="1" min="0"
-                           class="form-control w-sm-25 mx-auto shadow-lg" placeholder="Qty">
+                           class="form-control w-sm-25 mx-auto shadow-lg" placeholder="Qty" th:field="*{quantity}">
                 </div>
                 <div class="col-lg-2 text-center add-more" id="add-more">
                     <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button">+Add</a>
@@ -46,7 +41,7 @@
         </div>
         <div class="form-group w-100 w-sm-25 p-3 mx-auto">
             <div class="col w-25" style="padding-top: 10px;">
-                <button type="submit" value="Submit" class="btn shadow-lg btn-outline-light fw-bold">Submit</button>
+                <button id="submit" type="submit" value="Submit" class="btn shadow-lg btn-outline-light fw-bold">Submit</button>
             </div>
         </div>
     </form>
@@ -64,6 +59,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -77,6 +73,14 @@
             selCol.remove("#add-more")
             $(".form-cont").append(selCol);
         })
+    })
+    $("#submit").on('click', function() {
+        let data = {project:{}};
+
+        $("#form").serializeArray().map(function(x) {
+            data["project"][x.name] = x.value;
+        });
+        console.log(data);
     })
 
 </script>

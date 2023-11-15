@@ -9,6 +9,28 @@
 </head>
 <body>
 
+<table sec:authorize="hasRole('TRADER')" class="table table-hover caption-top w-75" th:align="center"
+       xmlns:sec="http://www.w3.org/1999/xhtml">
+    <caption style="color: black"><h3>All your customers</h3></caption>
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">ContactPerson</th>
+        <th scope="col">Customer details</th>
+        <th scope="col">Add order</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.getId()}"></td>
+        <td th:text="${customer.getName()}"></td>
+        <td th:text="${customer.getContactPerson()}"></td>
+        <td><a class="btn shadow-lg btn-outline-dark" th:href="@{/customer-detail/{id}(id=*{customer.getId()})}">Customer details</a></td>
+        <td><a class="btn shadow-lg btn-outline-dark" th:href="@{/order-add/{id}(id=*{customer.getId()})}">Add order</a></td>
+    </tr>
+    </tbody>
+</table>
 
 
 </body>
