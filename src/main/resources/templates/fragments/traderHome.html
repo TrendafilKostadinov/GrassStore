@@ -8,19 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-
-<button class="btn shadow-lg btn-outline-dark" id="loadRates">Get exchange rates</button>
-<table class="table table-hover caption-top w-75">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>Currency</th>
-        <th>Rate</th>
-    </tr>
-    </thead>
-    <tbody id="rates-container"></tbody>
-</table>
-
+<div class="col-lg-4 mx-auto">
+    <div th:if="${success}" class="alert alert-success w-50 text-center fw-bold" role="alert">
+        <h5>Successfully deleted!</h5>
+    </div>
+</div>
 
 <table sec:authorize="hasRole('TRADER')" class="table table-hover caption-top w-75" th:align="center"
        xmlns:sec="http://www.w3.org/1999/xhtml">
@@ -39,57 +31,40 @@
         <td th:text="${customer.getId()}"></td>
         <td th:text="${customer.getName()}"></td>
         <td th:text="${customer.getContactPerson()}"></td>
-        <td><a class="btn shadow-lg btn-outline-dark" th:href="@{/customer-detail/{id}(id=*{customer.getId()})}">Customer details</a></td>
-        <td><a class="btn shadow-lg btn-outline-dark" th:href="@{/order-add/{id}(id=*{customer.getId()})}">Add order</a></td>
+        <td><a class="btn shadow-lg btn-outline-dark" data-toggle="modal" data-target="#deleteCustomerModal">Delete
+            customer</a></td>
+        <div class="modal fade" id="deleteCustomerModal" tabindex="-1" role="dialog" aria-labelledby="confModal"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog" role="document">
+                <form
+                        th:method="POST"
+                        th:action="@{/customer-delete/{id}(id=*{customer.getId()})}">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">DELETE USER</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this customer?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn shadow btn-outline-dark" data-dismiss="modal">Close
+                            </button>
+                            <button type="submit" value="submit" class="btn shadow btn-outline-dark">Delete customer
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <td><a class="btn shadow-lg btn-outline-dark" th:href="@{/order-add/{id}(id=*{customer.getId()})}">Add order</a>
+        </td>
     </tr>
     </tbody>
 </table>
 
-<script>
-    let loadRatesBtn = document.getElementById("loadRates");
-
-    loadRatesBtn.addEventListener('click', reloadRates)
-
-    function reloadRates() {
-
-        let ratesCont = document.getElementById('rates-container')
-        ratesCont.innerHTML = ''
-
-        let ratesFetched = my_async_fn("https://openexchangerates.org/api/latest.json?app_id=4a51a5a828584c5bb2101f089cb42f29&symbols=BGN,GBP");
-
-        async function my_async_fn(url) {
-            let response = await fetch(url);
-            return await response.json();
-        }
-
-
-        let counter = 0;
-
-
-        ratesFetched.rates.forEach(rate => {
-            counter++;
-
-            let row = document.createElement('tr');
-
-            let indexCol = document.createElement('td')
-            let currencyCol = document.createElement('td')
-            let rateCol = document.createElement('td')
-
-            indexCol.textContent = counter.toString();
-            currencyCol.textContent = rate.getKey(counter-1);
-            rateCol.textContent = rate.getValue(counter -1);
-
-            row.appendChild(indexCol);
-            row.appendChild(currencyCol);
-            row.appendChild(rateCol);
-
-            ratesCont.appendChild(row)
-        })
-
-    }
-
-
-</script>
 
 </body>
 </html>

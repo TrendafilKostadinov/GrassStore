@@ -4,6 +4,9 @@
             <div class="col-lg-2 text-center">
                 <a class="btn shadow-lg btn-outline-light fw-bold m-2" type="button" href="/home">HOME</a>
             </div>
+            <div class="col-lg-2 text-center" sec:authorize="hasRole('TRADER')">
+                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" id="loadRates">Get exchange rates</a>
+            </div>
             <div class="col-lg-2 text-center" sec:authorize="hasRole('ADMIN')">
                 <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/user-add}">Add user</a>
             </div>
@@ -34,4 +37,128 @@
             </div>
         </div>
     </nav>
+
+    <table sec:authorize="hasRole('TRADER')" id="exTab" class="table hidden caption-top" style="width: 10%;font-size: small;margin: 20px !important;">
+        <caption id="caption" class="hidden" style="color: black"><strong>Rates for 1 USD</strong></caption>
+        <thead id="thead" class="hidden">
+        <tr>
+            <th>#</th>
+            <th>Currency</th>
+            <th>Rate</th>
+        </tr>
+        </thead>
+        <tbody id="rates-container" class="hidden"></tbody>
+    </table>
+
+    <script>
+
+        let loadRatesBtn = document.getElementById("loadRates");
+
+        loadRatesBtn.addEventListener('click', reloadRates)
+
+        function reloadRates() {
+
+            document.getElementById("caption").style.visibility = "visible";
+            document.getElementById("thead").style.visibility = "visible";
+            document.getElementById("rates-container").style.visibility = "visible";
+            document.getElementById("exTab").style.visibility = "visible";
+
+            let ratesCont = document.getElementById('rates-container')
+            ratesCont.innerHTML = '';
+            let caption = ""
+
+            fetch("https://openexchangerates.org/api/latest.json?app_id=4a51a5a828584c5bb2101f089cb42f29&symbols=BGN,GBP,CHF,EUR")
+                .then(response => response.json())
+                .then(data => {
+                    const BGN = data.rates.BGN;
+                    const BGNName = 'BGN'
+                    let BGFlag = '<svg class="ten" xmlns="http://www.w3.org/2000/svg" id="flag-icons-bg" viewBox="0 0 512 512">\n' +
+                        '  <g fill-rule="evenodd" stroke-width="1pt">\n' +
+                        '    <path fill="#d62612" d="M0 341.3h512V512H0z"/>\n' +
+                        '    <path fill="#fff" d="M0 0h512v170.7H0z"/>\n' +
+                        '    <path fill="#00966e" d="M0 170.7h512v170.6H0z"/>\n' +
+                        '  </g>\n' +
+                        '</svg>';
+                    const GBP = data.rates.GBP;
+                    const GBPName = 'GBP';
+                    let GBFlag = '<svg class="ten" xmlns="http://www.w3.org/2000/svg" id="flag-icons-sh" viewBox="0 0 512 512">\n' +
+                        '  <path fill="#012169" d="M0 0h512v512H0z"/>\n' +
+                        '  <path fill="#FFF" d="M512 0v64L322 256l190 187v69h-67L254 324 68 512H0v-68l186-187L0 74V0h62l192 188L440 0z"/>\n' +
+                        '  <path fill="#C8102E" d="m184 324 11 34L42 512H0v-3l184-185zm124-12 54 8 150 147v45L308 312zM512 0 320 196l-4-44L466 0h46zM0 1l193 189-59-8L0 49V1z"/>\n' +
+                        '  <path fill="#FFF" d="M176 0v512h160V0H176zM0 176v160h512V176H0z"/>\n' +
+                        '  <path fill="#C8102E" d="M0 208v96h512v-96H0zM208 0v512h96V0h-96z"/>\n' +
+                        '</svg>';
+                    const CHF = data.rates.CHF;
+                    const CHFName = 'CHF';
+                    let CFFlag = '<svg class="ten" xmlns="http://www.w3.org/2000/svg" id="flag-icons-ch" viewBox="0 0 512 512">\n' +
+                        '  <g fill-rule="evenodd" stroke-width="1pt">\n' +
+                        '    <path fill="red" d="M0 0h512v512H0z"/>\n' +
+                        '    <g fill="#fff">\n' +
+                        '      <path d="M96 208h320v96H96z"/>\n' +
+                        '      <path d="M208 96h96v320h-96z"/>\n' +
+                        '    </g>\n' +
+                        '  </g>\n' +
+                        '</svg>';
+                    const EUR = data.rates.EUR;
+                    const EURName = 'EUR';
+                    let EUFlag = '<svg class="ten" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icons-eu" viewBox="0 0 512 512">\n' +
+                        '  <defs>\n' +
+                        '    <g id="eu-d">\n' +
+                        '      <g id="eu-b">\n' +
+                        '        <path id="eu-a" d="m0-1-.3 1 .5.1z"/>\n' +
+                        '        <use xlink:href="#eu-a" transform="scale(-1 1)"/>\n' +
+                        '      </g>\n' +
+                        '      <g id="eu-c">\n' +
+                        '        <use xlink:href="#eu-b" transform="rotate(72)"/>\n' +
+                        '        <use xlink:href="#eu-b" transform="rotate(144)"/>\n' +
+                        '      </g>\n' +
+                        '      <use xlink:href="#eu-c" transform="scale(-1 1)"/>\n' +
+                        '    </g>\n' +
+                        '  </defs>\n' +
+                        '  <path fill="#039" d="M0 0h512v512H0z"/>\n' +
+                        '  <g fill="#fc0" transform="translate(256 258.4)scale(25.28395)">\n' +
+                        '    <use xlink:href="#eu-d" width="100%" height="100%" y="-6"/>\n' +
+                        '    <use xlink:href="#eu-d" width="100%" height="100%" y="6"/>\n' +
+                        '    <g id="eu-e">\n' +
+                        '      <use xlink:href="#eu-d" width="100%" height="100%" x="-6"/>\n' +
+                        '      <use xlink:href="#eu-d" width="100%" height="100%" transform="rotate(-144 -2.3 -2.1)"/>\n' +
+                        '      <use xlink:href="#eu-d" width="100%" height="100%" transform="rotate(144 -2.1 -2.3)"/>\n' +
+                        '      <use xlink:href="#eu-d" width="100%" height="100%" transform="rotate(72 -4.7 -2)"/>\n' +
+                        '      <use xlink:href="#eu-d" width="100%" height="100%" transform="rotate(72 -5 .5)"/>\n' +
+                        '    </g>\n' +
+                        '    <use xlink:href="#eu-e" width="100%" height="100%" transform="scale(-1 1)"/>\n' +
+                        '  </g>\n' +
+                        '</svg>';
+
+                    let counter = 1;
+                    addRow(BGN, BGNName, BGFlag);
+                    addRow(GBP, GBPName, GBFlag);
+                    addRow(CHF, CHFName, CFFlag);
+                    addRow(EUR, EURName, EUFlag);
+
+                    function addRow(curr, name, flag) {
+
+                        let rateRow = document.createElement('tr')
+
+                        let indexCol = document.createElement('td')
+                        let currencyCol = document.createElement('td')
+                        let rateCol = document.createElement('td')
+
+                        indexCol.innerHTML = flag;
+                        currencyCol.textContent = name;
+                        rateCol.textContent = curr;
+
+                        rateRow.appendChild(indexCol);
+                        rateRow.appendChild(currencyCol);
+                        rateRow.appendChild(rateCol);
+
+                        ratesCont.append(rateRow)
+                    }
+                })
+
+        }
+
+
+    </script>
+
 </div>

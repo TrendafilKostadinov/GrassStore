@@ -35,7 +35,7 @@
                            class="form-control w-sm-25 mx-auto shadow-lg" placeholder="Qty" th:field="*{quantity}">
                 </div>
                 <div class="col-lg-2 text-center add-more" id="add-more">
-                    <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button">+Add</a>
+                    <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button">+Add row</a>
                 </div>
             </div>
         </div>
@@ -70,6 +70,8 @@
             let selCol = $("#show_item")
                 .clone()
                 .attr("id", "row_" + index);
+            selCol.children("#add-more")
+                .attr("class", "col-lg-2 text-center hidden add-more")
             selCol.remove("#add-more")
             $(".form-cont").append(selCol);
         })

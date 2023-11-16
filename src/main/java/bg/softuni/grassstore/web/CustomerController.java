@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -57,6 +58,17 @@ public class CustomerController {
             return "redirect:/customer-add";
         }
 
+
+        return "redirect:/home";
+    }
+
+    @PostMapping("/customer-delete/{id}")
+    public String deleteCustomer(@PathVariable Long id,
+                                 RedirectAttributes redirectAttributes){
+
+        if(customerService.deleteCustomer(id)){
+            redirectAttributes.addFlashAttribute("success", true);
+        }
 
         return "redirect:/home";
     }

@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -85,6 +86,17 @@ public class CustomerService {
     public CustomerDetailDTO getCustomer(Long customerId) {
         CustomerEntity customerEntity = customerRepository.findById(customerId).orElseThrow();
         return modelMapper.map(customerEntity, CustomerDetailDTO.class);
+    }
+
+    public boolean deleteCustomer(Long id) {
+        if (customerRepository.findById(id).isEmpty()){
+
+            return false;
+        }
+
+        customerRepository.deleteById(id);
+
+        return true;
     }
 
     //TODO:error handling
