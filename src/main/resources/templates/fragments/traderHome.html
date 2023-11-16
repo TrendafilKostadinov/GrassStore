@@ -9,6 +9,19 @@
 </head>
 <body>
 
+<button class="btn shadow-lg btn-outline-dark" id="loadRates">Get exchange rates</button>
+<table class="table table-hover caption-top w-75">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Currency</th>
+        <th>Rate</th>
+    </tr>
+    </thead>
+    <tbody id="rates-container"></tbody>
+</table>
+
+
 <table sec:authorize="hasRole('TRADER')" class="table table-hover caption-top w-75" th:align="center"
        xmlns:sec="http://www.w3.org/1999/xhtml">
     <caption style="color: black"><h3>All your customers</h3></caption>
@@ -32,6 +45,51 @@
     </tbody>
 </table>
 
+<script>
+    let loadRatesBtn = document.getElementById("loadRates");
+
+    loadRatesBtn.addEventListener('click', reloadRates)
+
+    function reloadRates() {
+
+        let ratesCont = document.getElementById('rates-container')
+        ratesCont.innerHTML = ''
+
+        let ratesFetched = my_async_fn("https://openexchangerates.org/api/latest.json?app_id=4a51a5a828584c5bb2101f089cb42f29&symbols=BGN,GBP");
+
+        async function my_async_fn(url) {
+            let response = await fetch(url);
+            return await response.json();
+        }
+
+
+        let counter = 0;
+
+
+        ratesFetched.rates.forEach(rate => {
+            counter++;
+
+            let row = document.createElement('tr');
+
+            let indexCol = document.createElement('td')
+            let currencyCol = document.createElement('td')
+            let rateCol = document.createElement('td')
+
+            indexCol.textContent = counter.toString();
+            currencyCol.textContent = rate.getKey(counter-1);
+            rateCol.textContent = rate.getValue(counter -1);
+
+            row.appendChild(indexCol);
+            row.appendChild(currencyCol);
+            row.appendChild(rateCol);
+
+            ratesCont.appendChild(row)
+        })
+
+    }
+
+
+</script>
 
 </body>
 </html>
