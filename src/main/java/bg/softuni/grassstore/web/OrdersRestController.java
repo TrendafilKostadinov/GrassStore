@@ -23,7 +23,7 @@ public class OrdersRestController {
     }
 
     @PostMapping(path = "/order-add/{customerId}")
-    public ResponseEntity<String> getOrder(@RequestParam List<Long> productId,
+    public ResponseEntity<String> postOrder(@RequestParam List<Long> productId,
                                            @RequestParam List<Long> quantity,
                                            @PathVariable Long customerId) {
 

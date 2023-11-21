@@ -18,7 +18,7 @@
         <div class="form-group w-100 w-sm-25 p-3 mx-auto">
             <label for="customerInput" class="mx-auto fw-bold">Customer</label>
             <input type="text" class="form-control shadow-lg" id="customerInput"
-                   th:placeholder="${customer.getName()}" disabled readonly>
+                   th:placeholder="${customer.getName()}" th:value="${customer.getId()}" disabled readonly>
         </div>
         <div class="container--fluid justify-content-center form-cont" id="form-cont">
             <div class="row" id="show_item" style="justify-content: center; align-items: center">
@@ -74,15 +74,16 @@
             selCol.remove("#add-more")
             $(".form-cont").append(selCol);
         })
-    })
-    $("#submit").on('click', function() {
-        let data = {project:{}};
+    });
 
-        $("#form").serializeArray().map(function(x) {
-            data["project"][x.name] = x.value;
-        });
-        console.log(data);
-    })
+    $.ajax({
+        type: "POST",
+        url: "/order-add/" + $('#customerInput').val(),
+        success: function () {
+            // Redirect to the new page after a successful POST request
+            window.location.href = "/home"; // Replace with your desired page URL
+        }
+    });
 
 </script>
 
