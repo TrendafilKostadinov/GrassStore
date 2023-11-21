@@ -1,10 +1,12 @@
 package bg.softuni.grassstore.service;
 
 import bg.softuni.grassstore.model.dto.OrderDetailDTO;
+import bg.softuni.grassstore.model.entity.ProductEntity;
 import bg.softuni.grassstore.repository.OrderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,5 +27,14 @@ public class OrderService {
                 .stream()
                 .map(orderEntity -> modelMapper.map(orderEntity, OrderDetailDTO.class))
                 .toList();
+    }
+
+    public boolean addOrder(List<Long> productIdList, List<Long> quantityList, Long customerId) {
+        List<ProductEntity> productList = new ArrayList<>();
+        for (int i = 0; i < productIdList.size(); i++) {
+
+        }
+
+        return true;
     }
 }
