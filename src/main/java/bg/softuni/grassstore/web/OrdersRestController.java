@@ -31,7 +31,7 @@ public class OrdersRestController {
 
         //TODO: order add
 
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().build();
     }
 
 }

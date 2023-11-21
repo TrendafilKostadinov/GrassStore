@@ -2,6 +2,7 @@ package bg.softuni.grassstore.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 
@@ -20,9 +21,8 @@ public class ProductEntity extends BaseEntity{
     @NotNull
     private BigDecimal price;
 
-    @Positive
-    @NotNull
-    private Double quantity;
+    @OneToOne
+    private WarehouseStock stock;
 
     public String getName() {
         return name;
@@ -39,15 +39,6 @@ public class ProductEntity extends BaseEntity{
 
     public ProductEntity setPrice(BigDecimal price) {
         this.price = price;
-        return this;
-    }
-
-    public Double getQuantity() {
-        return quantity;
-    }
-
-    public ProductEntity setQuantity(Double quantity) {
-        this.quantity = quantity;
         return this;
     }
 }

@@ -24,7 +24,7 @@ public class DBInit implements CommandLineRunner {
 
     private final UserRepository userRepository;
 
-    private final static String ADMIN_PASS = "77ca17c2891b5e12603b45cf841060faeb7cc15f62eaa1929330c497835bf02d5dbd2e6ee32d086ef1a654e4e9e3e1eb";
+    private final static String ADMIN_PASS = "35e391ed69df5e69935da0029aa972f4402f113b5671e7af33f780b706b7849f0f0bd022b113bc274660777ef559e1d0";
 
     public DBInit(RolesRepository rolesRepository,
                   CurrencyRepository currencyRepository,
