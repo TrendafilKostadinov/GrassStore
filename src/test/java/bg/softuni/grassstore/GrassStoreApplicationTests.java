@@ -5,5 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class GrassStoreApplicationTests {
-
+    @Test
+    void contextLoads() {
+    }
 }
