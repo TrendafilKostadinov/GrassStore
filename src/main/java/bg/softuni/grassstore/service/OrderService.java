@@ -57,9 +57,7 @@ public class OrderService {
             row.setProduct(productRepository.findById(productIdList.get(i)).orElseThrow());
             row.setQuantity(quantityList.get(i));
 
-            orderRowRepository.save(row);
-
-            rowList.add(row);
+            rowList.add(orderRowRepository.save(row));
         }
 
         OrderEntity order = new OrderEntity();
@@ -68,7 +66,13 @@ public class OrderService {
 
         order.setProducts(rowList);
 
-        orderRepository.save(order);
+        OrderEntity orderToSave = orderRepository.save(order);
+
+        for (OrderRowEntity row : rowList) {
+            row.setOrder(orderToSave);
+        }
+
+        orderRowRepository.saveAll(rowList);
 
         return true;
     }

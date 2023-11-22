@@ -15,7 +15,7 @@ public class OrderEntity extends BaseEntity{
     private CustomerEntity customer;
 
     @NotEmpty
-    @OneToMany(mappedBy = "orderId")
+    @OneToMany(mappedBy = "order")
     private List<OrderRowEntity> products;
 
     private boolean isDelivered = false;

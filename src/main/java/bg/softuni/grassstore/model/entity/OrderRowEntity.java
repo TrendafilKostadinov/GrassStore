@@ -13,7 +13,7 @@ public class OrderRowEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn
-    private OrderEntity orderId;
+    private OrderEntity order;
 
     public ProductEntity getProduct() {
         return product;
@@ -30,6 +30,15 @@ public class OrderRowEntity extends BaseEntity {
 
     public OrderRowEntity setQuantity(Long quantity) {
         this.quantity = quantity;
+        return this;
+    }
+
+    public OrderEntity getOrder() {
+        return order;
+    }
+
+    public OrderRowEntity setOrder(OrderEntity order) {
+        this.order = order;
         return this;
     }
 }

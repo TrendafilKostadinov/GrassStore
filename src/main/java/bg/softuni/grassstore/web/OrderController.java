@@ -47,10 +47,4 @@ public class OrderController {
         return "/order-add";
     }
 
-//    @PostMapping("/order-add/{customerId}")
-//    public String postOrderAdd(@PathVariable Long customerId,
-//            List<OrderAddDTO> orderAddDTO){
-//        return "/home";
-//    }
-
 }

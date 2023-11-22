@@ -30,7 +30,7 @@
                     </option>
                 </select>
                 <div class="form-group add-qty col-lg-2">
-                    <input type="number" step="1" min="0"
+                    <input type="number" step="1" min="1"
                            class="form-control w-sm-25 mx-auto shadow-lg" placeholder="Qty" th:field="*{quantity}">
                 </div>
                 <div class="col-lg-2 text-center add-more" id="add-more">
@@ -80,21 +80,18 @@
     $("#form_input").submit(function (e) {
         e.preventDefault();
 
-        // Extract the path variable from the customerInput field
         var customerInputValue = $("#customerInput").val();
 
-        // Serialize the form data
         var formData = $('#form_input').serialize();
 
-        // Make the POST request
         $.ajax({
             type: "POST",
-            url: "/order-add/" + customerInputValue, // Use the extracted path variable
+            url: "/order-add/" + customerInputValue,
             contentType: "application/x-www-form-urlencoded",
             data: formData,
             success: function () {
-                // Redirect to the new page after a successful POST request
-                window.location.href = "/home"; // Replace with your desired page URL
+
+                window.location.href = "/home";
             },
             error: function (error) {
                 console.error("Error:", error);
