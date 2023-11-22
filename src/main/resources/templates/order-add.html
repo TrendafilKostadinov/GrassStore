@@ -13,12 +13,12 @@
             th:action="@{/order-add/{customerId}(customerId = ${customer.getId()})}"
             th:method="POST"
             th:object="${orderAddDTO}"
-            class="col-md-12" id="form_input" style="padding-top: 20px;" >
+            class="col-md-12" id="form_input" style="padding-top: 20px;">
 
         <div class="form-group w-100 w-sm-25 p-3 mx-auto">
             <label for="customerInput" class="mx-auto fw-bold">Customer</label>
             <input type="text" class="form-control shadow-lg" id="customerInput"
-                   th:placeholder="${customer.getName()}" th:value="${customer.getName()}" disabled readonly>
+                   th:placeholder="${customer.getName()}" th:value="${customer.getId()}" disabled readonly>
         </div>
         <div class="container--fluid justify-content-center form-cont" id="form-cont">
             <div class="row" id="show_item" style="justify-content: center; align-items: center">
@@ -30,7 +30,7 @@
                     </option>
                 </select>
                 <div class="form-group add-qty col-lg-2">
-                    <input  type="number" step="1" min="0"
+                    <input type="number" step="1" min="0"
                            class="form-control w-sm-25 mx-auto shadow-lg" placeholder="Qty" th:field="*{quantity}">
                 </div>
                 <div class="col-lg-2 text-center add-more" id="add-more">
@@ -40,7 +40,9 @@
         </div>
         <div class="form-group w-100 w-sm-25 p-3 mx-auto">
             <div class="col w-25" style="padding-top: 10px;">
-                <button id="submit" type="submit" value="Submit" class="btn shadow-lg btn-outline-light fw-bold" onclick="redirect();">Submit</button>
+                <button id="submit" type="submit" value="Submit" class="btn shadow-lg btn-outline-light fw-bold"
+                        onclick="redirect();">Submit
+                </button>
             </div>
         </div>
     </form>
@@ -75,10 +77,30 @@
             $(".form-cont").append(selCol);
         })
     });
-    function redirect() {
-        window.location.replace("http://localhost:8080/home");
-        return false;
-    }
+    $("#form_input").submit(function (e) {
+        e.preventDefault();
+
+        // Extract the path variable from the customerInput field
+        var customerInputValue = $("#customerInput").val();
+
+        // Serialize the form data
+        var formData = $('#form_input').serialize();
+
+        // Make the POST request
+        $.ajax({
+            type: "POST",
+            url: "/order-add/" + customerInputValue, // Use the extracted path variable
+            contentType: "application/x-www-form-urlencoded",
+            data: formData,
+            success: function () {
+                // Redirect to the new page after a successful POST request
+                window.location.href = "/home"; // Replace with your desired page URL
+            },
+            error: function (error) {
+                console.error("Error:", error);
+            },
+        });
+    });
 
 </script>
 

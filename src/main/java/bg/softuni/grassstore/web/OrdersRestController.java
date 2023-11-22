@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -23,13 +24,11 @@ public class OrdersRestController {
     }
 
     @PostMapping(path = "/order-add/{customerId}")
-    public ResponseEntity<String> postOrder(@RequestParam List<Long> productId,
-                                           @RequestParam List<Long> quantity,
+    public ResponseEntity<String> postOrder(@ModelAttribute OrderAddDTO requestBody,
                                            @PathVariable Long customerId) {
 
-        System.out.println();
+        orderService.addOrder(requestBody.getProductId(), requestBody.getQuantity(), customerId);
 
-        //TODO: order add
 
         return ResponseEntity.ok().build();
     }

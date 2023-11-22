@@ -59,6 +59,7 @@ public class SecurityConfiguration {
                         }
                 ).sessionManagement()
                 .maximumSessions(1).sessionRegistry(sessionRegistry());
+        httpSecurity.csrf().disable();
 
         return httpSecurity.build();
     }

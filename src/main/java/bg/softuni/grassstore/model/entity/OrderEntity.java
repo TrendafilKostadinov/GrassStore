@@ -1,9 +1,6 @@
 package bg.softuni.grassstore.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,45 +15,35 @@ public class OrderEntity extends BaseEntity{
     private CustomerEntity customer;
 
     @NotEmpty
-    @ManyToMany
-    private List<ProductEntity> products;
-
-    @ManyToOne
-    @NotNull
-    private CurrencyEntity currency;
+    @OneToMany(mappedBy = "orderId")
+    private List<OrderRowEntity> products;
 
     private boolean isDelivered = false;
-
 
     public CustomerEntity getCustomer() {
         return customer;
     }
 
-    public void setCustomer(CustomerEntity customer) {
+    public OrderEntity setCustomer(CustomerEntity customer) {
         this.customer = customer;
+        return this;
     }
 
-    public List<ProductEntity> getProducts() {
+    public List<OrderRowEntity> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductEntity> products) {
+    public OrderEntity setProducts(List<OrderRowEntity> products) {
         this.products = products;
-    }
-
-    public CurrencyEntity getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(CurrencyEntity currency) {
-        this.currency = currency;
+        return this;
     }
 
     public boolean isDelivered() {
         return isDelivered;
     }
 
-    public void setDelivered(boolean delivered) {
+    public OrderEntity setDelivered(boolean delivered) {
         isDelivered = delivered;
+        return this;
     }
 }

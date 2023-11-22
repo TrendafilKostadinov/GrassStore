@@ -2,27 +2,29 @@ package bg.softuni.grassstore.model.dto;
 
 import jakarta.validation.constraints.Positive;
 
+import java.util.List;
+
 public class OrderAddDTO {
 
-    private Long productId;
+    private List<Long> productId;
 
     @Positive
-    private int quantity;
+    private List<Long> quantity;
 
-    public Long getProductId() {
+    public List<Long> getProductId() {
         return productId;
     }
 
-    public OrderAddDTO setProductId(Long productId) {
+    public OrderAddDTO setProductId(List<Long> productId) {
         this.productId = productId;
         return this;
     }
 
-    public int getQuantity() {
+    public List<Long> getQuantity() {
         return quantity;
     }
 
-    public OrderAddDTO setQuantity(int quantity) {
+    public OrderAddDTO setQuantity(List<Long> quantity) {
         this.quantity = quantity;
         return this;
     }
