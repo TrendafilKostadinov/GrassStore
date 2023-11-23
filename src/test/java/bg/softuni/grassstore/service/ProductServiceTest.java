@@ -55,14 +55,12 @@ class ProductServiceTest {
 
         ProductAddDTO existingProductDTO = new ProductAddDTO()
                 .setName("existingProduct")
-                .setPrice(BigDecimal.TEN)
-                .setQuantity(20.0);
+                .setPrice(BigDecimal.TEN);
         assertFalse(productService.addProduct(existingProductDTO));
 
         ProductAddDTO newProductDTO = new ProductAddDTO()
                 .setName("newProduct")
-                .setPrice(BigDecimal.valueOf(15.99))
-                .setQuantity(10.0);
+                .setPrice(BigDecimal.valueOf(15.99));
         assertTrue(productService.addProduct(newProductDTO));
 
 
