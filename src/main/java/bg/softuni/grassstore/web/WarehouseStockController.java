@@ -1,5 +1,6 @@
 package bg.softuni.grassstore.web;
 
+import bg.softuni.grassstore.model.dto.WarehouseDetailDTO;
 import bg.softuni.grassstore.model.dto.WarehouseStockDTO;
 import bg.softuni.grassstore.service.ProductService;
 import bg.softuni.grassstore.service.WarehouseStockService;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class WarehouseStockController {
@@ -42,6 +45,16 @@ public class WarehouseStockController {
         warehouseStockService.addDelivery(warehouseStockDTO);
 
         return "redirect:/home";
+    }
+
+    @GetMapping("/stock-get")
+    public String getStock(Model model){
+
+        List<WarehouseDetailDTO> allStock = warehouseStockService.getAllStock();
+
+        model.addAttribute("stockAll", allStock);
+
+        return "/stock-get";
     }
 
 }

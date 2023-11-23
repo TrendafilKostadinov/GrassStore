@@ -1,5 +1,6 @@
 package bg.softuni.grassstore.service;
 
+import bg.softuni.grassstore.model.dto.WarehouseDetailDTO;
 import bg.softuni.grassstore.model.dto.WarehouseStockDTO;
 import bg.softuni.grassstore.model.entity.OrderRowEntity;
 import bg.softuni.grassstore.model.entity.ProductEntity;
@@ -7,6 +8,8 @@ import bg.softuni.grassstore.model.entity.WarehouseStock;
 import bg.softuni.grassstore.repository.WarehouseStockRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class WarehouseStockService {
@@ -55,5 +58,21 @@ public class WarehouseStockService {
         warehouseStock.setQuantity(warehouseStock.getQuantity() - row.getQuantity());
 
         warehouseStockRepository.save(warehouseStock);
+    }
+
+    public List<WarehouseDetailDTO> getAllStock() {
+        return warehouseStockRepository
+                .findAll()
+                .stream()
+                .map(this::mapWarehouseDetail).toList();
+    }
+
+    public WarehouseDetailDTO mapWarehouseDetail(WarehouseStock warehouseStock){
+        WarehouseDetailDTO warehouseDetailDTO = new WarehouseDetailDTO();
+
+        warehouseDetailDTO.setProduct(warehouseStock.getProduct().getName());
+        warehouseDetailDTO.setQuantity(warehouseStock.getQuantity());
+
+        return warehouseDetailDTO;
     }
 }

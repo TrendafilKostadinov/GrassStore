@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<table class="table table-hover caption-top w-50" th:align="center"
+       xmlns:sec="http://www.w3.org/1999/xhtml">
+    <caption style="color: black"><h3>All stock</h3></caption>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product</th>
+        <th scope="col">Quantity</th>
+    </tr>
+    </thead>
+    <tbody id="allStockTable">
+    <tr th:each="stock : ${stockAll}">
+        <td th:text="${stockAll.indexOf(stock) + 1}"></td>
+        <td th:text="${stock.getProduct()}"></td>
+        <td th:text="${stock.getQuantity()}"></td>
+    </tr>
+    </tbody>
+</table>
+</html>
