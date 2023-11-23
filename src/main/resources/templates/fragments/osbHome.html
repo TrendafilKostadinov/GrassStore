@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<table sec:authorize="hasRole('OSB')" class="table table-hover caption-top w-75" th:align="center"
+       xmlns:sec="http://www.w3.org/1999/xhtml">
+    <caption style="color: black"><h3>All active orders</h3></caption>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Order number</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Sum</th>
+    </tr>
+    </thead>
+    <tbody id="allOrdersTable">
+    <tr th:each="order : ${orders}">
+        <td th:text="${orders.indexOf(order) + 1}"></td>
+        <td th:text="${order.getId()}"></td>
+        <td th:text="${order.getCustomer().getName()}"></td>
+        <td th:text="${order.getSum().toString}"></td>
+        <td><a class="btn shadow-lg btn-outline-dark" th:href="@{/order-ship/{id}(id=*{order.getId()})}">Ship order</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

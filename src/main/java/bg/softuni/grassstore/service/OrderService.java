@@ -10,6 +10,7 @@ import bg.softuni.grassstore.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,5 +76,31 @@ public class OrderService {
         orderRowRepository.saveAll(rowList);
 
         return true;
+    }
+
+    public BigDecimal getOrderSum(Long orderId){
+
+        List<OrderRowEntity> allOrderRows = orderRowRepository.findAllByOrderId(orderId);
+
+        if (allOrderRows == null){
+            return BigDecimal.ZERO;
+        }
+
+        BigDecimal sum = BigDecimal.ZERO;
+
+        for (OrderRowEntity row : allOrderRows) {
+            BigDecimal price = row.getProduct().getPrice();
+            Long quantity = row.getQuantity();
+            sum = sum.add(price.multiply(BigDecimal.valueOf(quantity)));
+        }
+
+        return sum;
+    }
+
+    public List<OrderDetailDTO> calculateAllSum(List<OrderDetailDTO> orders) {
+        return orders
+                .stream()
+                .map(order -> order.setSum(this.getOrderSum(order.getId())))
+                .toList();
     }
 }

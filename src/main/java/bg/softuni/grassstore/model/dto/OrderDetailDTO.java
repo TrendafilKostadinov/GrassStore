@@ -4,42 +4,34 @@ import bg.softuni.grassstore.model.entity.CurrencyEntity;
 import bg.softuni.grassstore.model.entity.CustomerEntity;
 import bg.softuni.grassstore.model.entity.ProductEntity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderDetailDTO {
 
-    private CustomerEntity customer;
+    private Long id;
 
-    private List<ProductEntity> products;
-
-    private CurrencyEntity currency;
+    private CustomerDetailDTO customer;
 
     private boolean isDelivered;
 
-    public CustomerEntity getCustomer() {
+    private BigDecimal sum;
+
+    public Long getId() {
+        return id;
+    }
+
+    public OrderDetailDTO setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public CustomerDetailDTO getCustomer() {
         return customer;
     }
 
-    public OrderDetailDTO setCustomer(CustomerEntity customer) {
+    public OrderDetailDTO setCustomer(CustomerDetailDTO customer) {
         this.customer = customer;
-        return this;
-    }
-
-    public List<ProductEntity> getProducts() {
-        return products;
-    }
-
-    public OrderDetailDTO setProducts(List<ProductEntity> products) {
-        this.products = products;
-        return this;
-    }
-
-    public CurrencyEntity getCurrency() {
-        return currency;
-    }
-
-    public OrderDetailDTO setCurrency(CurrencyEntity currency) {
-        this.currency = currency;
         return this;
     }
 
@@ -49,6 +41,15 @@ public class OrderDetailDTO {
 
     public OrderDetailDTO setDelivered(boolean delivered) {
         isDelivered = delivered;
+        return this;
+    }
+
+    public BigDecimal getSum() {
+        return sum;
+    }
+
+    public OrderDetailDTO setSum(BigDecimal sum) {
+        this.sum = sum;
         return this;
     }
 }

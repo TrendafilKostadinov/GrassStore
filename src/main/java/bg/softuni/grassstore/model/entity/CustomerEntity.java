@@ -31,7 +31,6 @@ public class CustomerEntity extends BaseEntity{
     @NotBlank
     private String vatNumber;
 
-    @NotNull
     @ManyToOne
     private UserEntity trader;
 
