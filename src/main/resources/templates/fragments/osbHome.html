@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,6 +11,11 @@
 <div class="col-lg-4 mx-auto">
     <div th:if="${lowQuantity}" class="alert alert-danger w-50 text-center fw-bold" role="alert">
         <h5>Insufficient stock!</h5>
+    </div>
+</div>
+<div class="col-lg-4 mx-auto">
+    <div th:if="${shipped}" class="alert alert-success w-50 text-center fw-bold" role="alert">
+        <h5>Successfully shipped order!</h5>
     </div>
 </div>
 <table sec:authorize="hasRole('OSB')" class="table table-hover caption-top w-75" th:align="center"

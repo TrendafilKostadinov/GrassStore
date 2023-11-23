@@ -27,7 +27,16 @@ public class OrdersRestController {
     public ResponseEntity<String> postOrder(@ModelAttribute OrderAddDTO requestBody,
                                            @PathVariable Long customerId) {
 
-        orderService.addOrder(requestBody.getProductId(), requestBody.getQuantity(), customerId);
+        List<Long> productIdList = requestBody.getProductId();
+        List<Long> quantityList = requestBody.getQuantity();
+
+        for (Long qty : quantityList) {
+            if (qty == null){
+                return ResponseEntity.badRequest().build();
+            }
+        }
+
+        orderService.addOrder(productIdList, quantityList, customerId);
 
 
         return ResponseEntity.ok().build();

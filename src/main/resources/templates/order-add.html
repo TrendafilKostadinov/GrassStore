@@ -31,7 +31,8 @@
                 </select>
                 <div class="form-group add-qty col-lg-2">
                     <input type="number" step="1" min="1"
-                           class="form-control w-sm-25 mx-auto shadow-lg" placeholder="Qty" th:field="*{quantity}">
+                           class="form-control w-sm-25 mx-auto shadow-lg" id="myQty" placeholder="Qty"
+                           th:field="*{quantity}">
                 </div>
                 <div class="col-lg-2 text-center add-more" id="add-more">
                     <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button">+Add row</a>

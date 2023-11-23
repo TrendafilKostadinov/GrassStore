@@ -54,6 +54,8 @@ public class OrderController {
 
         if(orderService.shipOrder(id)){
 
+            redirectAttributes.addFlashAttribute("shipped", true);
+
             return "redirect:/home";
         }
 
