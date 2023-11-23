@@ -22,18 +22,20 @@ public class OrderService {
     private final ProductRepository productRepository;
 
     private final OrderRowRepository orderRowRepository;
-
+    private final WarehouseStockService warehouseStockService;
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
 
     public OrderService(OrderRepository orderRepository,
                         ProductRepository productRepository,
                         OrderRowRepository orderRowRepository,
+                        WarehouseStockService warehouseStockService,
                         CustomerRepository customerRepository,
                         ModelMapper modelMapper) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.orderRowRepository = orderRowRepository;
+        this.warehouseStockService = warehouseStockService;
         this.customerRepository = customerRepository;
         this.modelMapper = modelMapper;
     }
@@ -102,5 +104,28 @@ public class OrderService {
                 .stream()
                 .map(order -> order.setSum(this.getOrderSum(order.getId())))
                 .toList();
+    }
+
+    public boolean shipOrder(Long orderId) {
+        OrderEntity order = orderRepository
+                .findById(orderId)
+                .orElseThrow();
+
+        List<OrderRowEntity> orderProducts = order
+                .getProducts();
+
+        for (OrderRowEntity product : orderProducts) {
+
+            if(warehouseStockService.getWarehouseStock(product.getProduct()) < product.getQuantity()){
+                return false;
+            }
+            warehouseStockService.shipQuantity(product);
+        }
+
+        order.setDelivered(true);
+
+        orderRepository.save(order);
+
+        return true;
     }
 }

@@ -8,6 +8,11 @@
     <title>Document</title>
 </head>
 <body>
+<div class="col-lg-4 mx-auto">
+    <div th:if="${lowQuantity}" class="alert alert-danger w-50 text-center fw-bold" role="alert">
+        <h5>Insufficient stock!</h5>
+    </div>
+</div>
 <table sec:authorize="hasRole('OSB')" class="table table-hover caption-top w-75" th:align="center"
        xmlns:sec="http://www.w3.org/1999/xhtml">
     <caption style="color: black"><h3>All active orders</h3></caption>
@@ -25,7 +30,12 @@
         <td th:text="${order.getId()}"></td>
         <td th:text="${order.getCustomer().getName()}"></td>
         <td th:text="${order.getSum().toString}"></td>
-        <td><a class="btn shadow-lg btn-outline-dark" th:href="@{/order-ship/{id}(id=*{order.getId()})}">Ship order</a></td>
+        <td>
+            <form th:method="POST"
+                  th:action="@{/order-ship/{id}(id=*{order.getId()})}">
+                <button class="btn shadow-lg btn-outline-dark" >Ship order</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
