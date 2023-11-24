@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head::head">
 </head>
 <body>
@@ -15,9 +15,12 @@
         <li class="list-group-item" style="background-color: #ddff99"><strong>Full Name: </strong><span th:text="${user.getFullName()}"></span></li>
         <li class="list-group-item" style="background-color: #ddff99"><strong>Roles: </strong><span th:text="${user.getAllRoles()}"></span></li>
     </ul>
-    <div class="card-body align-items-center text-center" style="background-color: #ddff99">
+    <div sec:authorize="hasRole('ADMIN')" class="card-body align-items-center text-center" style="background-color: #ddff99">
         <a href="#" class="btn shadow btn-outline-dark m-2" data-toggle="modal" data-target="#changeNameModal">Change full name</a>
         <button th:unless="${user.getAllRoles().contains('ADMIN')}" class="btn shadow btn-outline-dark m-2" data-toggle="modal" data-target="#confModal">Delete user</button>
+    </div>
+    <div sec:authorize="hasRole('MANAGER')" th:unless="${user.getAllRoles().contains('ADMIN')}" class="card-body align-items-center text-center" style="background-color: #ddff99">
+        <a href="#" class="btn shadow btn-outline-dark m-2" data-toggle="modal" data-target="#changeRoleModal">Change role</a>
     </div>
 </div>
 </div>
@@ -72,6 +75,42 @@
                 <button type="submit" value="submit" class="btn shadow btn-outline-dark">Change name</button>
             </div>
         </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="changeRoleModal" tabindex="-1" role="dialog" aria-labelledby="changeNameModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+        <form
+                th:method="POST"
+                th:action="@{/change-role/{id}(id = ${user.getId()})}"
+                th:object="${userDetailDTO}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changeRole">CHANGE USER ROLE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="btn-group" role="group" aria-label="Role radio toggle button group">
+                            <input type="radio" class="btn-check" value="trader" name="btnradio" id="trader" autocomplete="off" checked>
+                            <label class="btn shadow btn-outline-dark" for="trader">TRADER</label>
+
+                            <input type="radio" class="btn-check" value="osb" name="btnradio" id="osb" autocomplete="off">
+                            <label class="btn shadow btn-outline-dark" for="osb">OSB</label>
+
+                            <input type="radio" class="btn-check" value="manager" name="btnradio" id="manager" autocomplete="off">
+                            <label class="btn shadow btn-outline-dark" for="manager">MANGER</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn shadow btn-outline-dark" data-dismiss="modal">Cancel</button>
+                    <button th:unless="${user.getAllRoles().contains('ADMIN')}" type="submit" value="submit" class="btn shadow btn-outline-dark">Change role</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

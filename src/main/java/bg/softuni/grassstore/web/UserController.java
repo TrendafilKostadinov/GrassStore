@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -152,5 +153,34 @@ public class UserController {
         userService.terminateSession(id);
 
         return "redirect:/home";
+    }
+
+    @GetMapping("/change-role")
+    public String getChangeRole(Model model){
+
+        List<UserDetailDTO> users = userService.getAllUsers();
+
+        model.addAttribute("users", users);
+
+        return "/change-role";
+    }
+
+    @GetMapping("/change-role/{id}")
+    public String getUserRole(@PathVariable Long id,
+                                Model model){
+
+        UserDetailDTO user = userService.getUser(id);
+        model.addAttribute("user", user);
+
+        return "/user-detail";
+    }
+
+    @PostMapping("/change-role/{id}")
+    public String postUserRole(@PathVariable Long id,
+                              String btnradio){
+
+        boolean changed = userService.changeUserRole(id, btnradio);
+
+        return "redirect:/change-role";
     }
 }

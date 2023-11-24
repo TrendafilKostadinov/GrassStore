@@ -4,7 +4,7 @@
             <div class="col-lg-2 text-center">
                 <a class="btn shadow-lg btn-outline-light fw-bold m-2" type="button" href="/home">HOME</a>
             </div>
-            <div class="col-lg-2 text-center" sec:authorize="hasRole('TRADER')">
+            <div class="col-lg-2 text-center" sec:authorize="hasAnyRole('TRADER', 'MANAGER')">
                 <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" id="loadRates">Get exchange rates</a>
             </div>
             <div class="col-lg-2 text-center">
@@ -20,7 +20,7 @@
                 <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/customer-add}">Add Customer</a>
             </div>
             <div class="col-lg-2 text-center" sec:authorize="hasRole('MANAGER')">
-                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/assign-role}">Assign Role</a>
+                <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/change-role}">Change Role</a>
             </div>
             <div class="col-lg-2 text-center" sec:authorize="hasRole('OSB')">
                 <a class="btn shadow-lg fw-bold btn-outline-light m-2" type="button" th:href="@{/delivery-add}">Add delivery</a>
@@ -41,7 +41,7 @@
         </div>
     </nav>
 
-    <table sec:authorize="hasRole('TRADER')" id="exTab" class="table hidden caption-top" style="width: 10%;font-size: small;margin: 20px !important;">
+    <table sec:authorize="hasAnyRole('TRADER', 'MANAGER')" id="exTab" class="table hidden caption-top" style="width: 10%;font-size: small;margin: 20px !important;">
         <caption id="caption" class="hidden" style="color: black"><strong>Rates for 1 USD</strong></caption>
         <thead id="thead" class="hidden">
         <tr>

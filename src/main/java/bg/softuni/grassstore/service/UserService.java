@@ -216,4 +216,30 @@ public class UserService {
                 .map(this::map)
                 .toList();
     }
+
+    public boolean changeUserRole(Long id, String role) {
+        UserEntity user = userRepository.findById(id).orElseThrow();
+
+        List<UserRoleEntity> userRoles = user.getRoles();
+
+        userRoles.clear();
+
+        UserRoleEntity roleEntity = new UserRoleEntity();
+
+        switch (role){
+            case "trader": roleEntity = rolesRepository.findByName(RoleNames.TRADER);
+            break;
+            case "osb": roleEntity = rolesRepository.findByName(RoleNames.OSB);
+            break;
+            case "manager": roleEntity = rolesRepository.findByName(RoleNames.MANAGER);
+        }
+
+        userRoles.add(roleEntity);
+
+        user.setRoles(userRoles);
+
+        userRepository.save(user);
+
+        return true;
+    }
 }

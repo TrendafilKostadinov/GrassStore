@@ -26,4 +26,26 @@
     </tr>
     </tbody>
 </table>
+<table sec:authorize="hasRole('MANAGER')" class="table table-hover caption-top w-50" th:align="center"
+       xmlns:sec="http://www.w3.org/1999/xhtml">
+    <caption style="color: black"><h3>All users</h3></caption>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">Roles</th>
+        <th scope="col">Change</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${users.indexOf(user) + 1}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.fullName}"></td>
+        <td th:text="${user.getAllRoles()}"></td>
+        <td><a th:unless="${user.getAllRoles().contains('ADMIN')}" class="btn shadow-lg btn-outline-dark" th:href="@{/change-role/{id}(id=*{user.getId()})}">Change role</a></td>
+    </tr>
+    </tbody>
+</table>
 </html>
