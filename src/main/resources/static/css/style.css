@@ -67,3 +67,13 @@ h3 {
 .hidden {
     visibility: hidden;
 }
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-box {
+    flex: 1 0 300px;
+    margin: 10px;
+}

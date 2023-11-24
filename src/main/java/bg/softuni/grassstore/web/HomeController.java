@@ -7,12 +7,15 @@ import bg.softuni.grassstore.model.dto.UserDetailDTO;
 import bg.softuni.grassstore.service.CustomerService;
 import bg.softuni.grassstore.service.OrderService;
 import bg.softuni.grassstore.service.UserService;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -47,12 +50,16 @@ public class HomeController {
         List<OrderDetailDTO> orders = orderService.getAllActiveOrders();
         orders = orderService.calculateAllSum(orders);
         List<TraderSalesDTO> sales = orderService.getAllSales();
+        List<String> tradersJson = sales.stream().map(TraderSalesDTO::getTrader).toList();
+        List<String> salesJson = sales.stream().map(TraderSalesDTO::getSales).map(BigDecimal::toString).toList();
 
         model.addAttribute( "username",userService.getUserFullName());
         model.addAttribute("users", users);
         model.addAttribute("customers", customers);
         model.addAttribute("orders", orders);
         model.addAttribute("sales", sales);
+        model.addAttribute("tradersJson", tradersJson);
+        model.addAttribute("salesJson", salesJson);
 
         return "home";
     }

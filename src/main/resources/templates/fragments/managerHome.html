@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,28 +9,75 @@
     <title>Document</title>
 </head>
 <body>
+<div class="flex-container justify-content-center">
+    <div class="flex-box" style="float:left; width:50%;">
+        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+    </div>
+    <div class="flex-box" style="float:right; width: 50%;">
+        <table sec:authorize="hasRole('MANAGER')" class="table table-hover caption-top w-100" style="margin-top: 20px !important;" th:align="center"
+               xmlns:sec="http://www.w3.org/1999/xhtml">
+            <caption style="color: black"><h3>All sales by trader</h3></caption>
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Number of orders</th>
+                <th scope="col">Sales</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sale : ${sales}">
+                <td th:text="${sales.indexOf(sale) + 1}"></td>
+                <td th:text="${sale.getTrader()}"></td>
+                <td th:text="${sale.getNumberOfOrders()}"></td>
+                <td th:text="${sale.getSales()} + '$'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<table sec:authorize="hasRole('MANAGER')" class="table table-hover caption-top w-50" th:align="center"
-       xmlns:sec="http://www.w3.org/1999/xhtml">
-    <caption style="color: black"><h3>All sales by trader</h3></caption>
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Number of orders</th>
-        <th scope="col">Sales</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="sale : ${sales}">
-        <td th:text="${sales.indexOf(sale) + 1}"></td>
-        <td th:text="${sale.getTrader()}"></td>
-        <td th:text="${sale.getNumberOfOrders()}"></td>
-        <td th:text="${sale.getSales()} + '$'"></td>
-    </tr>
-    </tbody>
-</table>
 
+<script th:inline="javascript">
+
+    let xData = [[${tradersJson}]]
+    let yData = [[${salesJson}]]
+
+    var xValues = xData;
+    var yValues = yData;
+    var barColors =
+        [
+            "#38E54D",
+            "#9CFF2E",
+            "#61B15A",
+            "#2192FF",
+            "#FFF76A",
+            "#ADCE74"
+        ];
+
+    // for (let i = 0; i < 10; i++) {
+    //     const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+    //     barColors.push(randomColor);
+    // }
+
+    new Chart("myChart", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            title: {
+                display: false,
+                text: "Traders sales"
+            }
+        }
+    });
+</script>
 
 </body>
 </html>
