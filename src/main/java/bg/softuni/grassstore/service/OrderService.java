@@ -1,6 +1,7 @@
 package bg.softuni.grassstore.service;
 
 import bg.softuni.grassstore.model.dto.OrderDetailDTO;
+import bg.softuni.grassstore.model.dto.TraderSalesDTO;
 import bg.softuni.grassstore.model.entity.OrderEntity;
 import bg.softuni.grassstore.model.entity.OrderRowEntity;
 import bg.softuni.grassstore.repository.CustomerRepository;
@@ -25,19 +26,22 @@ public class OrderService {
     private final WarehouseStockService warehouseStockService;
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
+    private final UserService userService;
 
     public OrderService(OrderRepository orderRepository,
                         ProductRepository productRepository,
                         OrderRowRepository orderRowRepository,
                         WarehouseStockService warehouseStockService,
                         CustomerRepository customerRepository,
-                        ModelMapper modelMapper) {
+                        ModelMapper modelMapper,
+                        UserService userService) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.orderRowRepository = orderRowRepository;
         this.warehouseStockService = warehouseStockService;
         this.customerRepository = customerRepository;
         this.modelMapper = modelMapper;
+        this.userService = userService;
     }
 
     public List<OrderDetailDTO> getAllActiveOrders() {
@@ -127,5 +131,36 @@ public class OrderService {
         orderRepository.save(order);
 
         return true;
+    }
+
+    public List<TraderSalesDTO> getAllSales() {
+        List<OrderDetailDTO> sales = orderRepository
+                .findAll()
+                .stream()
+                .map(orderEntity -> modelMapper.map(orderEntity, OrderDetailDTO.class))
+                .toList();
+
+        sales = this.calculateAllSum(sales);
+
+        return this.mapToSales(sales);
+    }
+
+    private List<TraderSalesDTO> mapToSales(List<OrderDetailDTO> sales) {
+        return userService.getAllTraders().stream().map(trader -> {
+
+            TraderSalesDTO traderSalesDTO = new TraderSalesDTO();
+            traderSalesDTO.setTrader(trader.getFullName());
+            traderSalesDTO.setNumberOfOrders(0);
+            traderSalesDTO.setSales(BigDecimal.ZERO);
+
+            for (OrderDetailDTO sale : sales) {
+                if (sale.getCustomer().getTrader().equals(trader.getFullName())){
+                    traderSalesDTO.setSales(traderSalesDTO.getSales().add(sale.getSum()));
+                    traderSalesDTO.setNumberOfOrders(traderSalesDTO.getNumberOfOrders() + 1);
+                }
+            }
+
+            return traderSalesDTO;
+        }).toList();
     }
 }

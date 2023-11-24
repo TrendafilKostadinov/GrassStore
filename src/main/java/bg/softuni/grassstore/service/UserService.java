@@ -8,6 +8,7 @@ import bg.softuni.grassstore.model.entity.UserRoleEntity;
 import bg.softuni.grassstore.model.enums.RoleNames;
 import bg.softuni.grassstore.repository.RolesRepository;
 import bg.softuni.grassstore.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionInformation;
@@ -32,14 +33,19 @@ public class UserService {
 
     private final SessionRegistry sessionRegistry;
 
+    private final ModelMapper modelMapper;
+
 
     public UserService(UserRepository userRepository,
                        RolesRepository rolesRepository,
-                       PasswordEncoder passwordEncoder, SessionRegistry sessionRegistry) {
+                       PasswordEncoder passwordEncoder,
+                       SessionRegistry sessionRegistry,
+                       ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.rolesRepository = rolesRepository;
         this.passwordEncoder = passwordEncoder;
         this.sessionRegistry = sessionRegistry;
+        this.modelMapper = modelMapper;
     }
 
     public String getUserFullName() {
@@ -241,5 +247,14 @@ public class UserService {
         userRepository.save(user);
 
         return true;
+    }
+
+    public List<UserDetailDTO> getAllTraders(){
+        return userRepository
+                .findAll()
+                .stream()
+                .filter(userEntity -> userEntity.getRoles().contains(rolesRepository.findByName(RoleNames.TRADER)))
+                .map(trader -> modelMapper.map(trader, UserDetailDTO.class))
+                .toList();
     }
 }

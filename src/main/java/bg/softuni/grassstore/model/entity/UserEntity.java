@@ -63,4 +63,9 @@ public class UserEntity extends BaseEntity {
         this.roles = roles;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return fullName;
+    }
 }

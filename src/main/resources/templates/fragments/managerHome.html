@@ -9,6 +9,27 @@
 </head>
 <body>
 
+<table sec:authorize="hasRole('MANAGER')" class="table table-hover caption-top w-50" th:align="center"
+       xmlns:sec="http://www.w3.org/1999/xhtml">
+    <caption style="color: black"><h3>All sales by trader</h3></caption>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Number of orders</th>
+        <th scope="col">Sales</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="sale : ${sales}">
+        <td th:text="${sales.indexOf(sale) + 1}"></td>
+        <td th:text="${sale.getTrader()}"></td>
+        <td th:text="${sale.getNumberOfOrders()}"></td>
+        <td th:text="${sale.getSales()} + '$'"></td>
+    </tr>
+    </tbody>
+</table>
+
 
 </body>
 </html>

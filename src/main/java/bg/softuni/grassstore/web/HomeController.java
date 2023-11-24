@@ -2,6 +2,7 @@ package bg.softuni.grassstore.web;
 
 import bg.softuni.grassstore.model.dto.CustomerDetailDTO;
 import bg.softuni.grassstore.model.dto.OrderDetailDTO;
+import bg.softuni.grassstore.model.dto.TraderSalesDTO;
 import bg.softuni.grassstore.model.dto.UserDetailDTO;
 import bg.softuni.grassstore.service.CustomerService;
 import bg.softuni.grassstore.service.OrderService;
@@ -45,11 +46,13 @@ public class HomeController {
         List<CustomerDetailDTO> customers = customerService.getAllCustomersByTrader();
         List<OrderDetailDTO> orders = orderService.getAllActiveOrders();
         orders = orderService.calculateAllSum(orders);
+        List<TraderSalesDTO> sales = orderService.getAllSales();
 
         model.addAttribute( "username",userService.getUserFullName());
         model.addAttribute("users", users);
         model.addAttribute("customers", customers);
         model.addAttribute("orders", orders);
+        model.addAttribute("sales", sales);
 
         return "home";
     }
