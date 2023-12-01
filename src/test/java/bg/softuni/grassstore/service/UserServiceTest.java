@@ -102,7 +102,7 @@ public class UserServiceTest {
         UserAddDTO userAddDTO = new UserAddDTO();
         userAddDTO.setEmail("test@example.com");
         userAddDTO.setPassword("password");
-        userAddDTO.setConfirmPassword("differentpassword"); // Mismatched passwords
+        userAddDTO.setConfirmPassword("differentpassword");
         userAddDTO.setFullName("Test User");
         userAddDTO.setRoles(Collections.singletonList("TRADER"));
 
