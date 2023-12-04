@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head::head">
 </head>
 <body>
 <div class="container" th:include="fragments/navbar">
 </div>
-<div class="container-fluid justify-content-center">
+<div sec:authorize="hasRole('OSB')" class="container-fluid justify-content-center">
     <h4 class="text-center text-white fw-bold" style="padding-top: 30px; text-shadow: #146A00">Add Delivery</h4>
     <form
             th:action="@{/delivery-add}"
