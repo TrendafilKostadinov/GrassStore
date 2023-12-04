@@ -93,10 +93,7 @@ public class UserService {
 
     public List<UserDetailDTO> getUsersFromSessionRegistry() {
 
-        List<User> principals = sessionRegistry.getAllPrincipals().stream()
-                .filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty())
-                .map(principal -> (User) principal)
-                .toList();
+        List<User> principals = getPrincipals();
         if (principals.size() == 0){
             return new ArrayList<>();
         }
@@ -108,6 +105,13 @@ public class UserService {
                                 .findByEmail(principal.getUsername())
                                 .orElse(null))
                 .map(this::map).collect(Collectors.toList());
+    }
+
+    public List<User> getPrincipals() {
+        return sessionRegistry.getAllPrincipals().stream()
+                .filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty())
+                .map(principal -> (User) principal)
+                .toList();
     }
 
     private UserDetailDTO map(UserEntity userEntity) {
