@@ -19,7 +19,7 @@ public class CustomerControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "TRADER")
     public void testGetAddCustomer() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/customer-add"))
                 .andExpect(status().isOk())

@@ -21,7 +21,7 @@ public class SystemUsageLogScheduler {
         this.userService = userService;
     }
 
-    @Scheduled(cron = "* */5 * * * *")
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void logSystemUsage() throws IOException {
 
         File file = new File("src/main/resources/system/system-usage.txt");
@@ -30,15 +30,13 @@ public class SystemUsageLogScheduler {
 
         List<User> principals = userService.getPrincipals();
 
-        String log = String.valueOf(LocalDateTime.now()) + " - " +
+        String log = LocalDateTime.now() + " - " +
                 principals.size() +
                 " user/s logged to the system." +
                 System.lineSeparator();
 
         writer.append(log);
         writer.close();
-
-        System.out.println("Done!");
 
     }
 
