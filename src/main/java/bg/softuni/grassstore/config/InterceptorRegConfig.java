@@ -19,6 +19,8 @@ public class InterceptorRegConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new IPCheckInterceptor(blockedIpService))
-                .addPathPatterns("/login");
+                .addPathPatterns("/login")
+                .addPathPatterns("/")
+                .addPathPatterns("/home");
     }
 }
